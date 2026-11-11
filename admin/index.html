@@ -83,12 +83,14 @@ tfoot td{font-weight:800;background:#fafafa}
   const PKG = {
     website: { n: 'Website', list: 500, mo: 75 },
     ordering: { n: 'Online store / Ordering', list: 800, mo: 90 },
+    menu: { n: 'In-house menu only', list: 150, mo: 25 },
     custom: { n: 'Custom', list: 0, mo: 90 }
   };
-  const POST_DEAL = 200, EXTRA_BRANCH = 50;
+  const POST_DEAL = 200, EXTRA_BRANCH = 50, INHOUSE = 100;
   const suggest = p => {
     const k = PKG[p.package] || PKG.website;
-    const setup = Math.max(0, k.list + (p.package === 'custom' ? +p.customBase || 0 : 0) - (p.postDeal ? POST_DEAL : 0) + Math.max(0, (+p.branches || 1) - 1) * EXTRA_BRANCH + (+p.extras || 0));
+    const menuOnly = p.package === 'menu';
+    const setup = Math.max(0, k.list + (p.package === 'custom' ? +p.customBase || 0 : 0) - (p.postDeal && !menuOnly ? POST_DEAL : 0) + Math.max(0, (+p.branches || 1) - 1) * EXTRA_BRANCH + (p.inhouse && !menuOnly ? INHOUSE : 0) + (+p.extras || 0));
     return { setup, monthly: k.mo };
   };
   const STATUS = { pitch: 'Pitching', won: 'Won', live: 'Live', free: 'Free', lost: 'Lost' };
@@ -228,7 +230,8 @@ tfoot td{font-weight:800;background:#fafafa}
             <label>Branches<input type="number" min="1" data-f="branches" value="${p.branches}"></label>
             ${p.package === 'custom' ? `<label>Custom base price ($)<input type="number" min="0" data-f="customBase" value="${p.customBase || 0}"></label>` : ''}
             <label>Extra features ($, one-time)<input type="number" min="0" data-f="extras" value="${p.extras || 0}"></label>
-            <label class="chk full"><input type="checkbox" data-f="postDeal" ${p.postDeal ? 'checked' : ''}> Post + mention deal (−$${POST_DEAL})</label>
+            ${p.package !== 'menu' ? `<label class="chk full"><input type="checkbox" data-f="postDeal" ${p.postDeal ? 'checked' : ''}> Post + mention deal (−$${POST_DEAL})</label>
+            <label class="chk full"><input type="checkbox" data-f="inhouse" ${p.inhouse ? 'checked' : ''}> In-house QR table menu (+$${INHOUSE}, no extra monthly)</label>` : ''}
             <label class="full">Site link<input data-f="links" value="${esc(p.links)}"></label>
             <label class="full">Notes<textarea data-f="notes">${esc(p.notes)}</textarea></label>
           </div></div>
@@ -242,7 +245,7 @@ tfoot td{font-weight:800;background:#fafafa}
             <label>Months billed so far<input type="number" min="0" data-f="months" value="${p.months}"></label>
             <label>Start date<input type="date" data-f="start" value="${esc(p.start)}"></label></div>
             <div class="sugg"><span class="mute sm">Suggested from your packages</span><div class="row" style="justify-content:space-between"><b>${$$(sg.setup)} + ${$$(sg.monthly)}/mo</b><button class="btn sm" id="use">Use this</button></div>
-              <span class="mute sm">${PKG[p.package].n}${p.package !== 'custom' ? ` list $${PKG[p.package].list}` : ''}${p.postDeal ? ` − $${POST_DEAL} post deal` : ''}${p.branches > 1 ? ` + ${p.branches - 1} extra branch${p.branches > 2 ? 'es' : ''} × $${EXTRA_BRANCH}` : ''}${+p.extras ? ` + $${p.extras} extras` : ''}</span></div></div>
+              <span class="mute sm">${PKG[p.package].n}${p.package !== 'custom' ? ` list $${PKG[p.package].list}` : ''}${p.postDeal && p.package !== 'menu' ? ` − $${POST_DEAL} post deal` : ''}${p.inhouse && p.package !== 'menu' ? ` + $${INHOUSE} in-house menu` : ''}${p.branches > 1 ? ` + ${p.branches - 1} extra branch${p.branches > 2 ? 'es' : ''} × $${EXTRA_BRANCH}` : ''}${+p.extras ? ` + $${p.extras} extras` : ''}</span></div></div>
           <div class="card"><h3>Costs</h3><div id="costs">${p.costs.map(k => `<div class="cost"><input data-cn="${k.id}" value="${esc(k.n)}" title="${esc(k.note)}"><input type="number" min="0" step="0.01" data-ca="${k.id}" value="${k.a}"><select data-cf="${k.id}"><option value="once" ${k.f === 'once' ? 'selected' : ''}>one-time</option><option value="month" ${k.f === 'month' ? 'selected' : ''}>per month</option><option value="year" ${k.f === 'year' ? 'selected' : ''}>per year</option></select><button class="btn x" data-cx="${k.id}" aria-label="Delete">✕</button></div>`).join('') || '<p class="mute">No costs.</p>'}</div>
             <button class="btn sm" id="addc" style="margin-top:6px">+ Add cost</button>
             <p class="mute sm" style="margin-top:8px">Domain price is an estimate: put what you actually pay.</p></div>
@@ -258,7 +261,7 @@ tfoot td{font-weight:800;background:#fafafa}
     $('#back').onclick = () => { cur = null; render(); };
     $('#main').querySelectorAll('[data-f]').forEach(el => {
       const k = el.dataset.f, num = el.type === 'number';
-      el.onchange = () => set(k, el.type === 'checkbox' ? el.checked : num ? +el.value : el.value, ['status', 'package', 'postDeal', 'branches', 'extras', 'customBase', 'setup', 'monthly', 'months', 'name'].includes(k));
+      el.onchange = () => set(k, el.type === 'checkbox' ? el.checked : num ? +el.value : el.value, ['status', 'package', 'postDeal', 'inhouse', 'branches', 'extras', 'customBase', 'setup', 'monthly', 'months', 'name'].includes(k));
     });
     $('#use').onclick = () => { p.setup = sg.setup; p.monthly = sg.monthly; save(); render(); };
     $('#tf').onsubmit = e => { e.preventDefault(); const v = $('#tn').value.trim(); if (!v) return; p.todos.push(T(v)); save(); render(); setTimeout(() => $('#tn').focus(), 0); };
@@ -274,7 +277,7 @@ tfoot td{font-weight:800;background:#fafafa}
   }
 
   /* ---------- calculator ---------- */
-  const Q = { package: 'website', branches: 1, postDeal: true, extras: 0, customBase: 0, domain: 12, other: 0 };
+  const Q = { package: 'website', branches: 1, postDeal: true, inhouse: false, extras: 0, customBase: 0, domain: 12, other: 0 };
   function calculator() {
     const s = suggest(Q), y1 = s.setup + s.monthly * 12, cost = (+Q.domain || 0) + (+Q.other || 0) * 12;
     $('#main').innerHTML = `<h2>Price calculator</h2><p class="mute">What to charge a new customer, based on what they're getting.</p>
@@ -283,7 +286,8 @@ tfoot td{font-weight:800;background:#fafafa}
         ${Q.package === 'custom' ? `<label class="full">Custom base price ($)<input type="number" min="0" data-q="customBase" value="${Q.customBase}"></label>` : ''}
         <label>Branches<input type="number" min="1" data-q="branches" value="${Q.branches}"></label>
         <label>Extra features ($)<input type="number" min="0" data-q="extras" value="${Q.extras}"></label>
-        <label class="chk full"><input type="checkbox" data-q="postDeal" ${Q.postDeal ? 'checked' : ''}> They post + mention @yallawebsite.lb (−$${POST_DEAL})</label>
+        ${Q.package !== 'menu' ? `<label class="chk full"><input type="checkbox" data-q="postDeal" ${Q.postDeal ? 'checked' : ''}> They post + mention @yallawebsite.lb (−$${POST_DEAL})</label>
+        <label class="chk full"><input type="checkbox" data-q="inhouse" ${Q.inhouse ? 'checked' : ''}> In-house QR table menu (+$${INHOUSE})</label>` : ''}
         <label>Domain ($ per year)<input type="number" min="0" data-q="domain" value="${Q.domain}"></label>
         <label>Other costs ($ per month)<input type="number" min="0" data-q="other" value="${Q.other}"></label>
       </div></div>
@@ -293,7 +297,7 @@ tfoot td{font-weight:800;background:#fafafa}
         <div style="margin-top:12px"><span class="mute">Your first 12 months</span><span></span></div>
         <div><span>Revenue</span><span>${$$(y1)}</span></div><div><span>Costs</span><span>${$$(cost)}</span></div>
         <div class="tot"><span>Profit</span><span class="${y1 - cost >= 0 ? 'good' : 'bad'}">${$$(y1 - cost)}</span></div></div>
-        <p class="mute sm" style="margin-top:12px">Rules: Website list $500, Ordering list $800, −$${POST_DEAL} for the post deal, +$${EXTRA_BRANCH} per extra branch, + extra features. Monthly $75 / $90. Anything bigger: custom, discuss on WhatsApp.</p></div></div>`;
+        <p class="mute sm" style="margin-top:12px">Rules: Website list $500, Ordering list $800, −$${POST_DEAL} for the post deal, +$${EXTRA_BRANCH} per extra branch, +$${INHOUSE} for the in-house QR menu, + extra features. Monthly $75 / $90. In-house menu on its own: $150 + $25/mo. QR stands: put their cost in Extra features. Anything bigger: custom, discuss on WhatsApp.</p></div></div>`;
     $('#main').querySelectorAll('[data-q]').forEach(el => el.onchange = () => { Q[el.dataset.q] = el.type === 'checkbox' ? el.checked : el.type === 'number' ? +el.value : el.value; render(); });
   }
 
