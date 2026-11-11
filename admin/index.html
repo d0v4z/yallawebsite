@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin | Yalla Website</title>
+<link rel="icon" href="../assets/img/logo.jpg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--acc:#ff5a1f;--bg:#f4f4f5;--card:#fff;--ink:#18181b;--mute:#71717a;--line:#e4e4e7;--good:#15803d;--bad:#b91c1c}
+body{background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+input,select,textarea{border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff;min-height:38px;width:100%}
+textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:-1px}
+label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--line);background:#fff;font-weight:700;cursor:pointer;white-space:nowrap}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.sm{min-height:30px;padding:0 10px;font-size:13px}
+.btn.x{border:0;background:none;color:var(--mute);min-height:28px;padding:0 6px}
+.mute{color:var(--mute)}.sm{font-size:12px}
+.good{color:var(--good)}.bad{color:var(--bad)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.s-pitch{background:#fef3c7;color:#92400e}.s-won{background:#dbeafe;color:#1e40af}.s-live{background:#dcfce7;color:#166534}.s-free{background:#f3e8ff;color:#6b21a8}.s-lost{background:#f4f4f5;color:#71717a}
+.center{min-height:100vh;display:grid;place-items:center;padding:20px}
+.lock{width:min(340px,100%);display:flex;flex-direction:column;gap:12px;text-align:center}
+.lock img{width:64px;height:64px;border-radius:16px;margin:0 auto}
+.bar{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:10px 20px;background:#fff;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.brand img{width:34px;height:34px;border-radius:9px}
+.tabs{display:flex;gap:4px;margin-inline-start:auto}
+.tabs button{border:0;background:none;padding:8px 14px;border-radius:8px;font-weight:700;cursor:pointer}
+.tabs button.on{background:var(--ink);color:#fff}
+main{padding:20px;max-width:1300px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h2{font-size:20px}h3{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin-bottom:10px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.kpis .card b{display:block;font-size:24px;line-height:1.2}
+.kpis .card span{font-size:12px;color:var(--mute)}
+table{width:100%;border-collapse:collapse}
+th{text-align:start;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);padding:8px 10px;border-bottom:1px solid var(--line);background:#fafafa;white-space:nowrap}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.n,th.n{text-align:end;white-space:nowrap}
+tr.click{cursor:pointer}tr.click:hover td{background:#fafafa}
+tfoot td{font-weight:800;background:#fafafa}
+.tw{padding:0;overflow:auto}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.pcard{cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.pcard:hover{border-color:var(--acc)}
+.pcard .t{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.pcard b{font-size:17px}
+.prog{height:6px;border-radius:3px;background:var(--line);overflow:hidden}.prog i{display:block;height:100%;background:var(--acc)}
+.dgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:14px;align-items:start}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fgrid .full{grid-column:1/-1}
+.chk{flex-direction:row;align-items:center;gap:8px;font-weight:500}.chk input{width:18px;height:18px;min-height:0}
+.todo{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.todo input[type=checkbox]{width:18px;height:18px;min-height:0;flex:none}
+.todo span{flex:1}.todo.done span{text-decoration:line-through;color:var(--mute)}
+.cost{display:grid;grid-template-columns:1fr 90px 110px 30px;gap:6px;align-items:center;margin-bottom:6px}
+.money{display:grid;gap:6px}
+.money div{display:flex;justify-content:space-between;gap:10px}
+.money .tot{border-top:1px solid var(--line);padding-top:8px;font-weight:800;font-size:16px}
+.sugg{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:12px;margin-top:10px}
+.sugg b{font-size:20px}
+.back{margin-bottom:4px}
+@media (max-width:900px){.dgrid{grid-template-columns:1fr}.bar{padding:10px 12px}.tabs{width:100%;order:3;margin:0}.tabs button{flex:1}main{padding:12px}.fgrid{grid-template-columns:1fr}.cost{grid-template-columns:1fr 70px 90px 26px}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(() => {
+  const KEY = 'yw-admin-v1', PINKEY = 'yw-admin-pin', $ = s => document.querySelector(s), app = $('#app');
+  const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const $$ = v => { v = Math.round((+v || 0) * 100) / 100; return (v < 0 ? '−$' : '$') + Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: 2 }); };
+  const uid = () => Math.random().toString(36).slice(2, 9);
+
+  /* ---------- pricing rules (your packages) ---------- */
+  const PKG = {
+    website: { n: 'Website', list: 500, mo: 75 },
+    ordering: { n: 'Online store / Ordering', list: 800, mo: 90 },
+    custom: { n: 'Custom', list: 0, mo: 90 }
+  };
+  const POST_DEAL = 200, EXTRA_BRANCH = 50;
+  const suggest = p => {
+    const k = PKG[p.package] || PKG.website;
+    const setup = Math.max(0, k.list + (p.package === 'custom' ? +p.customBase || 0 : 0) - (p.postDeal ? POST_DEAL : 0) + Math.max(0, (+p.branches || 1) - 1) * EXTRA_BRANCH + (+p.extras || 0));
+    return { setup, monthly: k.mo };
+  };
+  const STATUS = { pitch: 'Pitching', won: 'Won', live: 'Live', free: 'Free', lost: 'Lost' };
+  const active = p => p.status === 'won' || p.status === 'live';
+
+  /* ---------- money maths ---------- */
+  function calc(p) {
+    const m = active(p) ? Math.max(0, +p.months || 0) : 0, yrs = active(p) ? Math.max(1, Math.ceil(m / 12)) : 0;
+    const cOnce = p.costs.filter(c => c.f === 'once').reduce((a, c) => a + (+c.a || 0), 0);
+    const cMo = p.costs.filter(c => c.f === 'month').reduce((a, c) => a + (+c.a || 0), 0);
+    const cYr = p.costs.filter(c => c.f === 'year').reduce((a, c) => a + (+c.a || 0), 0);
+    const paid = p.status === 'free' || p.status === 'lost' ? false : active(p);
+    const revenue = paid ? (+p.setup || 0) + (+p.monthly || 0) * m : 0;
+    const costs = p.status === 'free' ? cOnce + cMo * m + cYr * yrs : active(p) ? cOnce + cMo * m + cYr * yrs : 0;
+    // first year projection, for pitching or any project
+    const y1Rev = p.status === 'free' || p.status === 'lost' ? 0 : (+p.setup || 0) + (+p.monthly || 0) * 12;
+    const y1Cost = cOnce + cMo * 12 + cYr;
+    return { m, revenue, costs, profit: revenue - costs, mrr: active(p) ? +p.monthly || 0 : 0, mcost: (active(p) || p.status === 'free') ? cMo + cYr / 12 : 0, y1Rev, y1Cost, y1Profit: y1Rev - y1Cost };
+  }
+
+  /* ---------- starting data ---------- */
+  const C = (n, a, f, note) => ({ id: uid(), n, a, f, note: note || '' });
+  const T = (t, d) => ({ id: uid(), t, d: !!d });
+  const base = (pk) => [C('Domain (.com)', 12, 'year', 'estimate, check the real price'), C('Hosting (GitHub Pages)', 0, 'month')].concat(pk === 'ordering' ? [C('Database / server (free tier)', 0, 'month', 'needed for real ordering')] : []);
+  const SEED = () => [
+    { id: 'boo', name: 'Boo Burger', client: 'Ibrahim Farchoukh', type: 'Restaurant', status: 'pitch', package: 'ordering', branches: 3, postDeal: true, extras: 0, setup: 700, monthly: 90, months: 0, start: '',
+      links: 'https://d0v4z.github.io/booburgerdemo/', notes: '3 branches: Monot, Batroun, Saida. Kilo items trigger the Tray of Happiness popup.',
+      costs: base('ordering'), todos: [T('Pitch Ibrahim with the sales deck'), T('Turn on GitHub Pages'), T('Get real food photos'), T('Build the real ordering system (database + order alerts)'), T('Buy domain and connect it')] },
+    { id: 'toto', name: "Toto's Joint", client: '', type: 'Restaurant', status: 'pitch', package: 'ordering', branches: 1, postDeal: true, extras: 0, setup: 600, monthly: 90, months: 0, start: '',
+      links: 'https://d0v4z.github.io/totosjointdemo/', notes: 'Msaytbeh, 70 992 001. Menu taken from take.app (69 items).',
+      costs: base('ordering'), todos: [T('Pitch the owner'), T('Turn on GitHub Pages'), T('Check the 69 menu prices are still right'), T('Build the real ordering system'), T('Buy domain and connect it')] },
+    { id: 'halabi', name: 'Halabi Bites', client: '', type: 'Restaurant', status: 'pitch', package: 'ordering', branches: 1, postDeal: true, extras: 0, setup: 600, monthly: 90, months: 0, start: '',
+      links: 'https://d0v4z.github.io/halabibitesdemo/', notes: 'Only the 3 briskets are real. Everything else on the menu is a placeholder.',
+      costs: base('ordering'), todos: [T('Get the real menu and prices (replace placeholders)'), T('Pitch the owner'), T('Turn on GitHub Pages'), T('Build the real ordering system'), T('Buy domain and connect it')] },
+    { id: 'karim', name: 'Karim Catering', client: 'Abed', type: 'Supermarket', status: 'pitch', package: 'website', branches: 1, postDeal: true, extras: 0, setup: 300, monthly: 75, months: 0, start: '',
+      links: 'https://d0v4z.github.io/karimcatering/', notes: 'Feedback page uses a Google Sheet (free).',
+      costs: base('website').concat([C('Feedback sheet (Google Sheets)', 0, 'month')]), todos: [T('Get the original logo and the تتبيلة كريم sign files'), T('Print QR codes for the feedback page'), T('Pitch Karim'), T('Turn on GitHub Pages'), T('Buy domain and connect it')] },
+    { id: 'techlab', name: 'TechLab', client: 'My own business', type: 'Tech service', status: 'free', package: 'website', branches: 1, postDeal: false, extras: 0, setup: 0, monthly: 0, months: 0, start: '',
+      links: 'https://d0v4z.github.io/techlab/', notes: 'Free, no costs.', costs: [], todos: [T('Site live', 1), T('GTA 6 countdown', 1)] }
+  ];
+  let D;
+  try { D = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+  if (!D || !Array.isArray(D.projects)) D = { projects: SEED() };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { alert('Could not save.'); } };
+  save();
+
+  let tab = 'overview', cur = null;
+
+  /* ---------- lock ---------- */
+  async function hash(s) { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('yw:' + s)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); }
+  function lock() {
+    const has = !!localStorage.getItem(PINKEY);
+    app.innerHTML = `<div class="center"><form class="card lock" id="lf"><img src="../assets/img/logo.jpg" alt=""><h2>Yalla Website admin</h2>
+      <p class="mute sm">${has ? 'Enter your PIN.' : 'Choose a PIN for this device.'}</p>
+      <input type="password" inputmode="numeric" id="pin" placeholder="PIN" autocomplete="${has ? 'current-password' : 'new-password'}" required minlength="4">
+      <button class="btn pri">${has ? 'Open' : 'Set PIN'}</button><p class="mute sm" id="lerr"></p></form></div>`;
+    $('#pin').focus();
+    $('#lf').onsubmit = async e => { e.preventDefault(); const h = await hash($('#pin').value);
+      if (!has) { localStorage.setItem(PINKEY, h); sessionStorage.setItem('yw-ok', '1'); render(); }
+      else if (h === localStorage.getItem(PINKEY)) { sessionStorage.setItem('yw-ok', '1'); render(); }
+      else $('#lerr').textContent = 'Wrong PIN.'; };
+  }
+
+  function shell() {
+    app.innerHTML = `<header class="bar"><div class="brand"><img src="../assets/img/logo.jpg" alt="">Yalla Website <span class="mute" style="font-weight:500">admin</span></div>
+      <nav class="tabs">${[['overview', 'Overview'], ['projects', 'Projects'], ['calc', 'Price calculator']].map(([k, n]) => `<button data-t="${k}" class="${tab === k ? 'on' : ''}">${n}</button>`).join('')}</nav>
+      <div class="row"><a class="btn sm" href="../" target="_blank">Site</a><button class="btn sm" id="lo">Lock</button></div></header><main id="main"></main>`;
+    app.querySelectorAll('[data-t]').forEach(b => b.onclick = () => { tab = b.dataset.t; cur = null; render(); });
+    $('#lo').onclick = () => { sessionStorage.removeItem('yw-ok'); render(); };
+  }
+  function render() {
+    if (!sessionStorage.getItem('yw-ok')) return lock();
+    shell();
+    if (cur) return project(D.projects.find(p => p.id === cur));
+    ({ overview, projects, calc: calculator })[tab]();
+  }
+
+  /* ---------- overview ---------- */
+  function overview() {
+    const rows = D.projects.map(p => ({ p, c: calc(p) }));
+    const sum = k => rows.reduce((a, r) => a + r.c[k], 0);
+    const act = rows.filter(r => active(r.p)), pit = rows.filter(r => r.p.status === 'pitch');
+    const pipeSetup = pit.reduce((a, r) => a + (+r.p.setup || 0), 0), pipeMo = pit.reduce((a, r) => a + (+r.p.monthly || 0), 0);
+    const todoLeft = D.projects.reduce((a, p) => a + p.todos.filter(t => !t.d).length, 0);
+    $('#main').innerHTML = `
+      <div class="kpis">
+        <div class="card"><span>Total revenue (so far)</span><b>${$$(sum('revenue'))}</b></div>
+        <div class="card"><span>Total costs (so far)</span><b>${$$(sum('costs'))}</b></div>
+        <div class="card"><span>Total profit (so far)</span><b class="${sum('profit') >= 0 ? 'good' : 'bad'}">${$$(sum('profit'))}</b></div>
+        <div class="card"><span>Monthly income (MRR)</span><b>${$$(sum('mrr'))}</b><span>${act.length} paying client${act.length === 1 ? '' : 's'}</span></div>
+        <div class="card"><span>Monthly costs</span><b>${$$(sum('mcost'))}</b></div>
+        <div class="card"><span>Pipeline (pitching)</span><b>${$$(pipeSetup)}</b><span>+ ${$$(pipeMo)}/mo if all say yes</span></div>
+        <div class="card"><span>To-dos left</span><b>${todoLeft}</b></div>
+      </div>
+      <div class="card tw"><table><thead><tr><th>Project</th><th>Status</th><th>Package</th><th class="n">Setup</th><th class="n">Monthly</th><th class="n">Months</th><th class="n">Revenue</th><th class="n">Costs</th><th class="n">Profit</th><th class="n">1st-year profit</th></tr></thead><tbody>
+        ${rows.map(({ p, c }) => `<tr class="click" data-p="${p.id}"><td><b>${esc(p.name)}</b><div class="mute sm">${esc(p.type)}</div></td><td><span class="pill s-${p.status}">${STATUS[p.status]}</span></td><td>${PKG[p.package].n}</td>
+          <td class="n">${$$(p.setup)}</td><td class="n">${$$(p.monthly)}</td><td class="n">${c.m}</td><td class="n">${$$(c.revenue)}</td><td class="n">${$$(c.costs)}</td><td class="n ${c.profit >= 0 ? 'good' : 'bad'}">${$$(c.profit)}</td><td class="n mute">${$$(c.y1Profit)}</td></tr>`).join('')}
+      </tbody><tfoot><tr><td>Total</td><td></td><td></td><td></td><td></td><td></td><td class="n">${$$(sum('revenue'))}</td><td class="n">${$$(sum('costs'))}</td><td class="n">${$$(sum('profit'))}</td><td class="n">${$$(sum('y1Profit'))}</td></tr></tfoot></table></div>
+      <p class="mute sm">Revenue and costs count only Won and Live projects, for the months you've billed. "1st-year profit" is what a project would make in its first 12 months. Data is saved only in this browser: use Backup to keep a copy.</p>
+      <div class="row"><button class="btn sm" id="exp">Backup (download)</button><label class="btn sm" style="flex-direction:row">Restore<input type="file" id="imp" accept="application/json" hidden></label><button class="btn sm" id="newp">+ New project</button></div>`;
+    $('#main').querySelectorAll('[data-p]').forEach(r => r.onclick = () => { cur = r.dataset.p; render(); });
+    $('#exp').onclick = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(D, null, 2)], { type: 'application/json' })); a.download = 'yallawebsite-admin-' + new Date().toISOString().slice(0, 10) + '.json'; a.click(); };
+    $('#imp').onchange = e => { const f = e.target.files[0]; if (!f) return; f.text().then(t => { try { const d = JSON.parse(t); if (!Array.isArray(d.projects)) throw 0; D = d; save(); render(); } catch (x) { alert('Not a valid backup file.'); } }); };
+    $('#newp').onclick = newProject;
+  }
+  function newProject() {
+    const p = { id: uid(), name: 'New project', client: '', type: '', status: 'pitch', package: 'website', branches: 1, postDeal: true, extras: 0, setup: 300, monthly: 75, months: 0, start: '', links: '', notes: '', costs: base('website'), todos: [T('Make a demo'), T('Pitch')] };
+    D.projects.push(p); save(); cur = p.id; render();
+  }
+
+  /* ---------- projects grid ---------- */
+  function projects() {
+    $('#main').innerHTML = `<div class="row" style="justify-content:space-between"><h2>Projects</h2><button class="btn pri sm" id="newp">+ New project</button></div>
+      <div class="pgrid">${D.projects.map(p => { const c = calc(p), done = p.todos.filter(t => t.d).length, all = p.todos.length;
+        return `<div class="card pcard" data-p="${p.id}"><div class="t"><b>${esc(p.name)}</b><span class="pill s-${p.status}">${STATUS[p.status]}</span></div>
+          <span class="mute">${esc(p.type)} · ${PKG[p.package].n}</span>
+          <span>${p.status === 'free' ? 'Free' : `${$$(p.setup)} + ${$$(p.monthly)}/mo`}</span>
+          <div class="prog"><i style="width:${all ? done / all * 100 : 0}%"></i></div><span class="mute sm">${done}/${all} to-dos done · profit so far <b class="${c.profit >= 0 ? 'good' : 'bad'}">${$$(c.profit)}</b></span></div>`; }).join('')}</div>`;
+    $('#main').querySelectorAll('[data-p]').forEach(r => r.onclick = () => { cur = r.dataset.p; render(); });
+    $('#newp').onclick = newProject;
+  }
+
+  /* ---------- one project ---------- */
+  function project(p) {
+    if (!p) { cur = null; return render(); }
+    const c = calc(p), sg = suggest(p);
+    $('#main').innerHTML = `<div><button class="btn sm back" id="back">← All projects</button></div>
+      <div class="row" style="justify-content:space-between"><h2>${esc(p.name)} <span class="pill s-${p.status}">${STATUS[p.status]}</span></h2>${p.links ? `<a class="btn sm" href="${esc(p.links)}" target="_blank" rel="noopener">Open site ↗</a>` : ''}</div>
+      <div class="dgrid">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card"><h3>Details</h3><div class="fgrid">
+            <label>Name<input data-f="name" value="${esc(p.name)}"></label>
+            <label>Client<input data-f="client" value="${esc(p.client)}"></label>
+            <label>Type<input data-f="type" value="${esc(p.type)}" placeholder="Restaurant, brand, store…"></label>
+            <label>Status<select data-f="status">${Object.entries(STATUS).map(([k, n]) => `<option value="${k}" ${p.status === k ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+            <label>Package<select data-f="package">${Object.entries(PKG).map(([k, v]) => `<option value="${k}" ${p.package === k ? 'selected' : ''}>${v.n}</option>`).join('')}</select></label>
+            <label>Branches<input type="number" min="1" data-f="branches" value="${p.branches}"></label>
+            ${p.package === 'custom' ? `<label>Custom base price ($)<input type="number" min="0" data-f="customBase" value="${p.customBase || 0}"></label>` : ''}
+            <label>Extra features ($, one-time)<input type="number" min="0" data-f="extras" value="${p.extras || 0}"></label>
+            <label class="chk full"><input type="checkbox" data-f="postDeal" ${p.postDeal ? 'checked' : ''}> Post + mention deal (−$${POST_DEAL})</label>
+            <label class="full">Site link<input data-f="links" value="${esc(p.links)}"></label>
+            <label class="full">Notes<textarea data-f="notes">${esc(p.notes)}</textarea></label>
+          </div></div>
+          <div class="card"><h3>To-do</h3><div id="todos">${p.todos.map(t => `<div class="todo ${t.d ? 'done' : ''}"><input type="checkbox" data-td="${t.id}" ${t.d ? 'checked' : ''}><span>${esc(t.t)}</span><button class="btn x" data-tx="${t.id}" aria-label="Delete">✕</button></div>`).join('') || '<p class="mute">Nothing yet.</p>'}</div>
+            <form class="row" id="tf" style="margin-top:10px;flex-wrap:nowrap"><input id="tn" placeholder="Add a to-do"><button class="btn sm pri">Add</button></form></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card"><h3>Price for the customer</h3><div class="fgrid">
+            <label>Setup price ($)<input type="number" min="0" data-f="setup" value="${p.setup}"></label>
+            <label>Monthly ($)<input type="number" min="0" data-f="monthly" value="${p.monthly}"></label>
+            <label>Months billed so far<input type="number" min="0" data-f="months" value="${p.months}"></label>
+            <label>Start date<input type="date" data-f="start" value="${esc(p.start)}"></label></div>
+            <div class="sugg"><span class="mute sm">Suggested from your packages</span><div class="row" style="justify-content:space-between"><b>${$$(sg.setup)} + ${$$(sg.monthly)}/mo</b><button class="btn sm" id="use">Use this</button></div>
+              <span class="mute sm">${PKG[p.package].n}${p.package !== 'custom' ? ` list $${PKG[p.package].list}` : ''}${p.postDeal ? ` − $${POST_DEAL} post deal` : ''}${p.branches > 1 ? ` + ${p.branches - 1} extra branch${p.branches > 2 ? 'es' : ''} × $${EXTRA_BRANCH}` : ''}${+p.extras ? ` + $${p.extras} extras` : ''}</span></div></div>
+          <div class="card"><h3>Costs</h3><div id="costs">${p.costs.map(k => `<div class="cost"><input data-cn="${k.id}" value="${esc(k.n)}" title="${esc(k.note)}"><input type="number" min="0" step="0.01" data-ca="${k.id}" value="${k.a}"><select data-cf="${k.id}"><option value="once" ${k.f === 'once' ? 'selected' : ''}>one-time</option><option value="month" ${k.f === 'month' ? 'selected' : ''}>per month</option><option value="year" ${k.f === 'year' ? 'selected' : ''}>per year</option></select><button class="btn x" data-cx="${k.id}" aria-label="Delete">✕</button></div>`).join('') || '<p class="mute">No costs.</p>'}</div>
+            <button class="btn sm" id="addc" style="margin-top:6px">+ Add cost</button>
+            <p class="mute sm" style="margin-top:8px">Domain price is an estimate: put what you actually pay.</p></div>
+          <div class="card"><h3>Money</h3><div class="money">
+            <div><span>Revenue so far</span><b>${$$(c.revenue)}</b></div><div><span>Costs so far</span><b>${$$(c.costs)}</b></div>
+            <div class="tot"><span>Profit so far</span><span class="${c.profit >= 0 ? 'good' : 'bad'}">${$$(c.profit)}</span></div>
+            <div style="margin-top:10px"><span class="mute">First 12 months</span><span></span></div>
+            <div><span>Revenue</span><span>${$$(c.y1Rev)}</span></div><div><span>Costs</span><span>${$$(c.y1Cost)}</span></div>
+            <div class="tot"><span>Profit</span><span class="${c.y1Profit >= 0 ? 'good' : 'bad'}">${$$(c.y1Profit)}</span></div></div></div>
+          <button class="btn" id="del" style="color:var(--bad);align-self:flex-start">Delete project</button>
+        </div></div>`;
+    const set = (k, v, rr = true) => { p[k] = v; save(); if (rr) { const y = scrollY; render(); scrollTo(0, y); } };
+    $('#back').onclick = () => { cur = null; render(); };
+    $('#main').querySelectorAll('[data-f]').forEach(el => {
+      const k = el.dataset.f, num = el.type === 'number';
+      el.onchange = () => set(k, el.type === 'checkbox' ? el.checked : num ? +el.value : el.value, ['status', 'package', 'postDeal', 'branches', 'extras', 'customBase', 'setup', 'monthly', 'months', 'name'].includes(k));
+    });
+    $('#use').onclick = () => { p.setup = sg.setup; p.monthly = sg.monthly; save(); render(); };
+    $('#tf').onsubmit = e => { e.preventDefault(); const v = $('#tn').value.trim(); if (!v) return; p.todos.push(T(v)); save(); render(); setTimeout(() => $('#tn').focus(), 0); };
+    $('#main').querySelectorAll('[data-td]').forEach(el => el.onchange = () => { p.todos.find(t => t.id === el.dataset.td).d = el.checked; save(); render(); });
+    $('#main').querySelectorAll('[data-tx]').forEach(el => el.onclick = () => { p.todos = p.todos.filter(t => t.id !== el.dataset.tx); save(); render(); });
+    const ck = id => p.costs.find(k => k.id === id);
+    $('#main').querySelectorAll('[data-cn]').forEach(el => el.onchange = () => { ck(el.dataset.cn).n = el.value; save(); });
+    $('#main').querySelectorAll('[data-ca]').forEach(el => el.onchange = () => { ck(el.dataset.ca).a = +el.value; save(); render(); });
+    $('#main').querySelectorAll('[data-cf]').forEach(el => el.onchange = () => { ck(el.dataset.cf).f = el.value; save(); render(); });
+    $('#main').querySelectorAll('[data-cx]').forEach(el => el.onclick = () => { p.costs = p.costs.filter(k => k.id !== el.dataset.cx); save(); render(); });
+    $('#addc').onclick = () => { p.costs.push(C('New cost', 0, 'month')); save(); render(); };
+    $('#del').onclick = () => { if (confirm('Delete ' + p.name + '?')) { D.projects = D.projects.filter(x => x !== p); save(); cur = null; render(); } };
+  }
+
+  /* ---------- calculator ---------- */
+  const Q = { package: 'website', branches: 1, postDeal: true, extras: 0, customBase: 0, domain: 12, other: 0 };
+  function calculator() {
+    const s = suggest(Q), y1 = s.setup + s.monthly * 12, cost = (+Q.domain || 0) + (+Q.other || 0) * 12;
+    $('#main').innerHTML = `<h2>Price calculator</h2><p class="mute">What to charge a new customer, based on what they're getting.</p>
+      <div class="dgrid"><div class="card"><div class="fgrid">
+        <label class="full">Package<select data-q="package">${Object.entries(PKG).map(([k, v]) => `<option value="${k}" ${Q.package === k ? 'selected' : ''}>${v.n}${v.list ? ` (list $${v.list} + $${v.mo}/mo)` : ''}</option>`).join('')}</select></label>
+        ${Q.package === 'custom' ? `<label class="full">Custom base price ($)<input type="number" min="0" data-q="customBase" value="${Q.customBase}"></label>` : ''}
+        <label>Branches<input type="number" min="1" data-q="branches" value="${Q.branches}"></label>
+        <label>Extra features ($)<input type="number" min="0" data-q="extras" value="${Q.extras}"></label>
+        <label class="chk full"><input type="checkbox" data-q="postDeal" ${Q.postDeal ? 'checked' : ''}> They post + mention @yallawebsite.lb (−$${POST_DEAL})</label>
+        <label>Domain ($ per year)<input type="number" min="0" data-q="domain" value="${Q.domain}"></label>
+        <label>Other costs ($ per month)<input type="number" min="0" data-q="other" value="${Q.other}"></label>
+      </div></div>
+      <div class="card"><h3>Charge them</h3><div class="money">
+        <div><span>Setup (one-time)</span><b style="font-size:22px">${$$(s.setup)}</b></div>
+        <div><span>Monthly</span><b style="font-size:22px">${$$(s.monthly)}</b></div>
+        <div style="margin-top:12px"><span class="mute">Your first 12 months</span><span></span></div>
+        <div><span>Revenue</span><span>${$$(y1)}</span></div><div><span>Costs</span><span>${$$(cost)}</span></div>
+        <div class="tot"><span>Profit</span><span class="${y1 - cost >= 0 ? 'good' : 'bad'}">${$$(y1 - cost)}</span></div></div>
+        <p class="mute sm" style="margin-top:12px">Rules: Website list $500, Ordering list $800, −$${POST_DEAL} for the post deal, +$${EXTRA_BRANCH} per extra branch, + extra features. Monthly $75 / $90. Anything bigger: custom, discuss on WhatsApp.</p></div></div>`;
+    $('#main').querySelectorAll('[data-q]').forEach(el => el.onchange = () => { Q[el.dataset.q] = el.type === 'checkbox' ? el.checked : el.type === 'number' ? +el.value : el.value; render(); });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
