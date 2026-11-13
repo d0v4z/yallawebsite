@@ -273,10 +273,12 @@ html[dir=rtl] .say .ln b{font-family:"Cairo",var(--disp);letter-spacing:0;line-h
 .say .bar i{display:block;height:100%;background:var(--or);transform:scaleX(var(--sp,0));transform-origin:left}
 
 /* projects viewer */
-.pv{position:relative;z-index:2}
-.pv .pin{will-change:opacity}
+.pv{position:absolute;inset:0;z-index:5;opacity:0;visibility:hidden;will-change:opacity}
+.pv.vis{visibility:visible}
 #services{position:relative;z-index:3;margin-top:-30svh}
-.pv .pin{position:sticky;top:0;height:100svh;overflow:hidden;isolation:isolate}
+html[dir=rtl] .pv .it:last-child h3{font-family:"Cairo",var(--disp);letter-spacing:0;line-height:1.15;margin-top:6px}
+@media (max-width:899px){.pv h3{font-size:clamp(38px,11vw,60px)}}
+.pv .pin{position:absolute;inset:0;overflow:hidden;isolation:isolate}
 .pv .bgs{position:absolute;inset:0;z-index:0;background:#000}
 .pv .bg{position:absolute;inset:0;background-size:cover;background-position:center top;opacity:0;transform:scale(1.1);transition:opacity .9s ease,transform 6s cubic-bezier(.2,.6,.3,1)}
 .pv .bg.on,.pv .bg.near{will-change:opacity,transform}
@@ -286,8 +288,8 @@ html[dir=rtl] .say .ln b{font-family:"Cairo",var(--disp);letter-spacing:0;line-h
   background:linear-gradient(90deg,rgba(15,13,12,.95) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.55) 100%),radial-gradient(50% 60% at 72% 55%,rgba(255,90,31,.28),transparent 70%)}
 html[dir=rtl] .pv .tint{background:linear-gradient(270deg,rgba(15,13,12,.95) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.55) 100%),radial-gradient(50% 60% at 28% 55%,rgba(255,90,31,.28),transparent 70%)}
 .pv .stage{position:absolute;inset:0;z-index:2;will-change:opacity,transform;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;width:min(1240px,100% - 64px);margin:0 auto;gap:40px;padding-top:70px}
-.pv .info{position:relative;min-height:420px}
-.pv .it{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;opacity:0;pointer-events:none;transform:translateY(30px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.pv .info{position:relative;display:grid;align-items:center}
+.pv .it{grid-area:1/1;position:relative;display:flex;flex-direction:column;justify-content:center;gap:14px;opacity:0;pointer-events:none;transform:translateY(30px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .pv .it.on{opacity:1;pointer-events:auto;transform:none;transition-delay:.15s}
 .pv .it.past{transform:translateY(-30px)}
 .pv .cnt{font-family:var(--disp);font-weight:900;font-size:15px;letter-spacing:.02em;color:var(--mute);direction:ltr;display:inline-flex;gap:10px;align-items:center}
@@ -311,8 +313,8 @@ html[dir=rtl] .pv .tag{letter-spacing:0}
 .pv .btn.nx{border:1.5px solid rgba(246,236,217,.3);background:rgba(15,13,12,.4)}
 .pv .btn.nx:hover{border-color:var(--cream)}
 html[dir=rtl] .pv .btn.nx svg{transform:scaleX(-1)}
-.pv .phs{position:relative;height:min(76svh,700px);perspective:1600px}
-.pv .phs .ph{--pw:calc(min(76svh,700px) / 2.17);left:50%;top:0;margin-left:calc(var(--pw) / -2);opacity:0;pointer-events:none;visibility:hidden;will-change:transform,opacity;
+.pv .phs{position:relative;height:min(76svh,700px);perspective:1600px;--pw:calc(min(76svh,700px) / 2.17)}
+.pv .phs .ph{left:50%;top:0;margin-left:calc(var(--pw) / -2);opacity:0;pointer-events:none;visibility:hidden;will-change:transform,opacity;
   transform:translate3d(60%,8%,-300px) rotateY(-38deg) rotateZ(8deg);transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .5s ease,visibility 0s .9s}
 .pv .phs .ph.near{visibility:visible}
 .pv .phs .ph.past{transform:translate3d(-70%,-6%,-300px) rotateY(38deg) rotateZ(-8deg)}
@@ -337,22 +339,23 @@ html[dir=rtl] .pv .rail{right:auto;left:22px}
 .pv .rail button.on{height:28px;border-radius:99px;background:var(--or)}
 .pv .swipe{display:none}
 @media (max-width:899px){
-  .pv .stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;width:100%;gap:0;padding:74px 0 0;align-items:start}
-  .pv .phs{order:-1;height:min(44svh,400px);margin-top:10px}
-  .pv .phs .ph{--pw:calc(min(44svh,400px) / 2.17)}
-  .pv .phs .shadow{bottom:-14px}
-  .pv .info{min-height:0;height:100%}
-  .pv .it{justify-content:flex-start;padding:24px 20px calc(18px + env(safe-area-inset-bottom));gap:9px}
+  .pv .stage{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto;width:100%;gap:0;padding:70px 0 0;align-items:stretch}
+  .pv .phs{order:-1;height:auto;min-height:0;margin:10px 0 6px}
+  .pv .phs .ph{top:50%;margin-top:calc(var(--pw) * -1.083)}
+  .pv .phs .shadow{bottom:-6px}
+  .pv .info{align-items:end}
+  .pv .it{justify-content:flex-end;padding:12px 20px calc(18px + env(safe-area-inset-bottom));gap:8px}
+  .pv .it>*{flex:none}
+  .pv.tight .it p{display:none}
   .pv h3{font-size:clamp(40px,12vw,64px)}
   .pv .cat{font-size:14px}
-  .pv .it p{font-size:14.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .pv .it p{font-size:14.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .pv .chips{display:none}
   .pv .acts .btn{padding:12px 18px;font-size:14px}
   .pv .tint{background:linear-gradient(180deg,rgba(15,13,12,.55) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.97) 70%),radial-gradient(70% 40% at 50% 28%,rgba(255,90,31,.3),transparent 70%)!important}
-  .pv .rail{top:auto;bottom:auto;right:12px;top:calc(74px + min(22svh,200px));gap:8px}
+  .pv .rail{right:12px;top:110px;transform:none;gap:8px}
   .pv .rail button{width:6px;height:6px}.pv .rail button.on{height:20px}
 }
-@media (max-width:899px) and (max-height:700px){.pv .phs{height:38svh}.pv .phs .ph{--pw:calc(38svh / 2.17)}.pv .it p{-webkit-line-clamp:2}}
 
 /* menu overlay (links only) */
 .nm{position:fixed;inset:0;z-index:140;background:var(--ink);display:flex;flex-direction:column;
@@ -411,15 +414,13 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   <div class="cue"><span data-k="cue">Scroll</span><i></i></div>
   <div class="grain"></div>
 </header>
-<div class="glw" id="glw"></div><div id="lines"></div><div class="bar"><i></i></div></div>
-</section>
-
-<section class="pv" id="work" aria-label="Our work">
-  <div class="pin" id="pvPin">
+<div class="glw" id="glw"></div><div id="lines"></div><div class="bar"><i></i></div>
+<div class="pv" id="work" aria-label="Our work"><div class="pin" id="pvPin">
     <div class="bgs" id="bgs"></div><div class="tint" id="tint"></div>
     <div class="stage"><div class="info" id="info"></div><div class="phs" id="phs"></div></div>
     <div class="rail" id="rail"></div>
-  </div>
+</div></div>
+</div>
 </section>
 
 <section class="sec" id="services">
@@ -714,12 +715,14 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
       el.classList.toggle('on', k === i); el.classList.toggle('past', k < i); el.classList.toggle('near', near(k)); el.tabIndex = k === i ? 0 : -1; });
     [...rail.children].forEach((el, k) => el.classList.toggle('on', k === i));
   }
-  const HOLD = 1; /* extra scroll the last step stays on screen */
-  const stepLen = () => (pv.offsetHeight - innerHeight) / (N - 1 + HOLD);
+  /* one pinned story: hero → lines → "Yalla." → projects. Everything moves only by opacity/scale inside one sticky screen. */
+  const HOLD = 1, LINE = 1, HERO = .55, SWAP = .8;
+  let H = innerHeight;
+  const P0 = () => (HERO + SAY.en.length * LINE + SWAP) * H;     // where the projects start
   function go(i) {
     i = clamp(i, 0, N - 1);
-    const top = pv.getBoundingClientRect().top + scrollY;
-    scrollTo({ top: top + i * stepLen() + 2, behavior: reduce ? 'auto' : 'smooth' });
+    const top = say.getBoundingClientRect().top + scrollY;
+    scrollTo({ top: top + P0() + i * H + 2, behavior: reduce ? 'auto' : 'smooth' });
   }
   pv.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) go(+g.dataset.go); });
   /* swipe between projects */
@@ -731,7 +734,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   }, { passive: true });
   addEventListener('keydown', e => {
     if (document.body.classList.contains('nm-on')) { if (e.key === 'Escape') closeMenu(); return; }
-    const r = pv.getBoundingClientRect(); if (r.top > 10 || r.bottom < innerHeight - 10) return;
+    if (!pv.classList.contains('vis')) return;
     if (e.key === 'ArrowRight') go(idx + (lang === 'ar' ? -1 : 1)); if (e.key === 'ArrowLeft') go(idx + (lang === 'ar' ? 1 : -1));
   });
   document.getElementById('seeWork').addEventListener('click', e => { e.preventDefault(); go(0); });
@@ -741,10 +744,17 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   function size(force) {
     const w = innerWidth, h = innerHeight;
     if (!force && w === lastW && Math.abs(h - lastH) < 160) return;
-    lastW = w; lastH = h;
-    say.style.height = (1.55 + SAY.en.length + 1) * h + 'px';
-    pv.style.marginTop = -h + 'px';
-    pv.style.height = (N + HOLD) * h + 'px';
+    lastW = w; lastH = h; H = h;
+    say.style.height = (P0() / H + N - 1 + HOLD + 1) * H + 'px';
+    fitPhone();
+  }
+  /* phone fills whatever height is left above the text (mobile) */
+  function fitPhone() {
+    if (innerWidth >= 900) { phs.style.removeProperty('--pw'); pv.classList.remove('tight'); return; }
+    pv.classList.remove('tight');
+    let ph = phs.clientHeight;
+    if (ph < 250) { pv.classList.add('tight'); ph = phs.clientHeight; }
+    phs.style.setProperty('--pw', Math.max(90, Math.min(ph * .96 / 2.167, innerWidth * .52)).toFixed(1) + 'px');
   }
 
   /* ---------- scroll ---------- */
@@ -755,14 +765,13 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
     const vh = innerHeight;
     nav.classList.toggle('solid', scrollY > 30);
     fab.classList.toggle('on', scrollY > vh * .7);
-    // one pinned stage: hero leaves, then the lines, then "Yalla." hands over to the projects
+    // the story (one sticky screen, no position tricks)
     const sr = say.getBoundingClientRect(), y0 = -sr.top, n = lnEls.length;
-    const hp = clamp(y0 / (vh * .6), 0, 1);
+    const hp = clamp(y0 / (H * .6), 0, 1);
     hx.style.opacity = (1 - hp).toFixed(3); hx.style.transform = hp ? `translate3d(0,${(-hp * 90).toFixed(1)}px,0) scale(${(1 - hp * .06).toFixed(3)})` : '';
     sayBar.style.opacity = hp.toFixed(2);
     hx.classList.toggle('gone', hp >= 1); hx.classList.toggle('off', hp >= 1);
-    const L0 = vh * .55, L1 = say.offsetHeight - vh * 2;          // lines run between these
-    const sp = clamp((y0 - L0) / (L1 - L0), 0, 1), f = sp * n;
+    const L0 = HERO * H, L1 = L0 + n * LINE * H, sp = clamp((y0 - L0) / (L1 - L0), 0, 1), f = sp * n;
     sayPin.style.setProperty('--sp', sp);
     lnEls.forEach((el, i) => {
       const t = f - i, last = i === n - 1;
@@ -774,19 +783,18 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
       else { o = 0; y = -50; }
       el.style.opacity = o.toFixed(3); el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${s.toFixed(3)})`;
     });
-    // projects coming in (the last screen of this section): "Yalla." zooms away first, then the viewer fades in
-    const pr = pv.getBoundingClientRect(), e = clamp(1 - pr.top / vh, 0, 1);
+    // swap: "Yalla." zooms away, then the projects fade in
+    const e = clamp((y0 - L1) / (SWAP * H), 0, 1);
     lines.style.opacity = clamp(1 - e * 2.2, 0, 1).toFixed(3); lines.style.transform = e ? `scale(${(1 + e * 1.6).toFixed(3)})` : '';
     glw.style.opacity = (f > n - 1 ? clamp(f - (n - 1), 0, 1) * (1 - e) : 0).toFixed(3);
-    if (pr.top > 0 && pr.top < vh) { pvPin.style.opacity = clamp((e - .5) * 2.2, 0, 1).toFixed(3); pvPin.style.transform = `translate3d(0,${(-pr.top).toFixed(1)}px,0)`; }
-    else if (pvPin.style.transform || pvPin.style.opacity) { pvPin.style.opacity = pr.top >= vh ? '0' : ''; pvPin.style.transform = ''; }
-    if (pr.bottom > 0 && pr.top < vh) {
-      setIdx(Math.round(clamp(-pr.top / stepLen(), 0, N - 1)));
-      // leaving: the stage drifts up and fades while the next part comes in
-      const ex = clamp((vh * 1.35 - pr.bottom) / (vh * .9), 0, 1);
-      stage.style.opacity = clamp(1 - ex * 1.4, 0, 1).toFixed(3); stage.style.transform = ex ? `translate3d(0,${(-ex * 120).toFixed(1)}px,0) scale(${(1 - ex * .06).toFixed(3)})` : '';
-      bgs.style.opacity = (1 - ex).toFixed(3);
-    }
+    const pvo = clamp((e - .5) * 2.2, 0, 1);
+    pv.style.opacity = pvo.toFixed(3); pv.classList.toggle('vis', pvo > 0);
+    sayBar.style.visibility = pvo > .5 ? 'hidden' : '';
+    if (pvo > 0) setIdx(Math.round(clamp((y0 - P0()) / H, 0, N - 1)));
+    // leaving: the projects drift up and fade while the next part slides in
+    const ex = clamp((vh * 1.35 - sr.bottom) / (vh * .9), 0, 1);
+    stage.style.opacity = clamp(1 - ex * 1.4, 0, 1).toFixed(3); stage.style.transform = ex ? `translate3d(0,${(-ex * 120).toFixed(1)}px,0) scale(${(1 - ex * .06).toFixed(3)})` : '';
+    bgs.style.opacity = (1 - ex).toFixed(3);
     // how-it-works rail + contact fill
     const st = steps.getBoundingClientRect();
     if (st.top < vh && st.bottom > 0) {
@@ -797,7 +805,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
     if (yr.top < vh && yr.bottom > 0) yalla.style.backgroundSize = (clamp((vh - yr.top) / (vh * .7), 0, 1) * 100) + '% 100%';
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
-  addEventListener('resize', () => { size(); onScroll(); });
+  addEventListener('resize', () => { size(); fitPhone(); onScroll(); });
 
   /* ---------- menu (links only) ---------- */
   const nm = document.getElementById('nm'), menuB = document.getElementById('menuB');
@@ -826,7 +834,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
     document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-k]').forEach(el => { const k = el.dataset.k; if (d[k] == null) return; el.innerHTML = d[k]; });
     document.getElementById('lang').textContent = d.langBtn; document.title = d.title;
-    renderSay(); renderPV();
+    renderSay(); renderPV(); fitPhone();
     const wa = 'https://wa.me/96171127767?text=' + encodeURIComponent(d.waMsg);
     const WAM = l === 'ar' ? { p1: 'مرحبا! بدّي موقع لبزنسي', p2: 'مرحبا! بدّي متجر / طلبات أونلاين', p3: 'مرحبا! بدّي شي خاص، فينا نحكي؟' } : { p1: 'Hi! I want a website for my business', p2: 'Hi! I want an online store / ordering', p3: 'Hi! I have a custom project, can we talk?' };
     document.querySelectorAll('[data-wa]').forEach(a => a.href = a.dataset.wamsg ? 'https://wa.me/96171127767?text=' + encodeURIComponent(WAM[a.dataset.wamsg]) : wa);
