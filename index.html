@@ -47,7 +47,7 @@ img{display:block;max-width:100%}
 
 /* nav */
 .nav{position:fixed;inset:0 0 auto;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:max(14px,env(safe-area-inset-top));transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
-.nav.solid{background:rgba(15,13,12,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-color:var(--line)}
+.nav.solid{background:rgba(15,13,12,.94);border-color:var(--line)}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:900;font-size:18px;letter-spacing:-.03em}
 .brand img{width:38px;height:38px;border-radius:50%}
 .links{display:flex;gap:28px;font-weight:700;font-size:15px}
@@ -196,6 +196,8 @@ html[dir=rtl] .plan h3,html[dir=rtl] .deal b{letter-spacing:0}
 .hx{position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate;
   background:radial-gradient(90% 70% at 75% 45%,rgba(255,90,31,.2),transparent 60%),var(--ink)}
 .hx .grain{position:absolute;inset:0;z-index:5;opacity:.06;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hx::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;z-index:4;pointer-events:none;background:linear-gradient(transparent,var(--ink))}
+.hx.off .ph,.hx.off .tall{animation-play-state:paused!important}
 .hx-txt{position:absolute;z-index:3;left:0;right:0;top:0;padding:clamp(96px,13svh,150px) 0 0}
 .hx-txt .wrap{width:min(1200px,100% - 40px)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:14px;color:var(--mute);margin-bottom:16px}
@@ -217,7 +219,7 @@ html[dir=rtl] .hx-h{font-family:"Cairo",var(--disp);letter-spacing:0;line-height
 
 /* phone (shared) */
 .ph{position:absolute;aspect-ratio:9/19.5;border-radius:calc(var(--pw) * .16);padding:calc(var(--pw) * .028);background:#060505;width:var(--pw);
-  box-shadow:0 0 0 1.5px #302a26,inset 0 0 0 1px #000,0 50px 100px -20px rgba(0,0,0,.85),0 0 80px -10px rgba(var(--rgb,255,90,31),.35)}
+  box-shadow:0 0 0 1.5px #302a26,inset 0 0 0 1px #000,0 50px 100px -20px rgba(0,0,0,.85),0 0 80px -10px rgba(255,90,31,.3)}
 .ph .scr{position:relative;width:100%;height:100%;overflow:hidden;border-radius:calc(var(--pw) * .135);background:#111}
 .ph .scr>img{width:100%;height:auto;max-width:none;display:block}
 .ph .scr>img.fit{height:100%;object-fit:cover;object-position:top}
@@ -230,11 +232,13 @@ html[dir=rtl] .hx-h{font-family:"Cairo",var(--disp);letter-spacing:0;line-height
 .hx-ph .rig{position:absolute;inset:0;transform-style:preserve-3d;transform:translate3d(var(--px,0),var(--py,0),0)}
 .hx-ph .ph{opacity:0;transition:opacity 1.2s ease}
 .loaded .hx-ph .ph{opacity:1}
+.loaded .hx-ph .h3{opacity:.6}.loaded .hx-ph .h4{opacity:.4}
+.loaded .hx-ph .h2{opacity:.85}
 .hx-ph .ph .fl{position:absolute;inset:0}
 .hx-ph .h1{--pw:clamp(150px,18vw,250px);left:64%;top:15%;transform:rotateY(-16deg) rotateZ(-4deg);animation:fl1 7s ease-in-out infinite;z-index:3}
-.hx-ph .h2{--pw:clamp(120px,13vw,190px);left:81%;top:32%;transform:rotateY(-22deg) rotateZ(5deg);animation:fl2 8s ease-in-out infinite;filter:brightness(.8);z-index:2}
-.hx-ph .h3{--pw:clamp(100px,10vw,150px);left:53%;top:56%;transform:rotateY(-10deg) rotateZ(-9deg);animation:fl3 9s ease-in-out infinite;filter:brightness(.55) blur(1px);z-index:1}
-.hx-ph .h4{--pw:clamp(90px,8vw,120px);left:91%;top:4%;transform:rotateZ(8deg);animation:fl2 10s ease-in-out infinite reverse;filter:brightness(.45) blur(2px);z-index:0}
+.hx-ph .h2{--pw:clamp(120px,13vw,190px);left:81%;top:32%;transform:rotateY(-22deg) rotateZ(5deg);animation:fl2 8s ease-in-out infinite;opacity:.85;z-index:2}
+.hx-ph .h3{--pw:clamp(100px,10vw,150px);left:53%;top:56%;transform:rotateY(-10deg) rotateZ(-9deg);animation:fl3 9s ease-in-out infinite;z-index:1}
+.hx-ph .h4{--pw:clamp(90px,8vw,120px);left:91%;top:4%;transform:rotateZ(8deg);animation:fl2 10s ease-in-out infinite reverse;z-index:0}
 @keyframes fl1{50%{translate:0 -18px}}
 @keyframes fl2{50%{translate:0 14px}}
 @keyframes fl3{50%{translate:0 -10px}}
@@ -256,9 +260,9 @@ html[dir=rtl] .hx-ph .ph .scr{transform:scaleX(-1)}
 
 /* fading lines */
 .say{position:relative;height:var(--sayh,500vh)}
-.say .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center;
-  background:radial-gradient(60% 50% at 50% 50%,rgba(255,90,31,var(--sg,0)),transparent 70%),var(--ink)}
-.say .ln{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 22px;opacity:0;will-change:opacity,transform,filter}
+.say .pin{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--ink)}
+.say .glw{position:absolute;inset:0;background:radial-gradient(55% 45% at 50% 50%,rgba(255,90,31,.38),transparent 70%);opacity:0;will-change:opacity}
+.say .ln{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 22px;opacity:0;will-change:opacity,transform;backface-visibility:hidden}
 .say .ln b{font-family:var(--disp);font-weight:900;font-size:clamp(46px,9.6vw,150px);line-height:.95;letter-spacing:-.05em;max-width:12ch;display:block}
 .say .ln b em{font-style:normal;color:var(--or)}
 .say .ln small{display:block;margin-top:18px;font-size:clamp(14px,1.4vw,18px);color:var(--mute);font-weight:700;letter-spacing:.02em}
@@ -268,47 +272,50 @@ html[dir=rtl] .say .ln b{font-family:"Cairo",var(--disp);letter-spacing:0;line-h
 .say .bar i{display:block;height:100%;background:var(--or);transform:scaleX(var(--sp,0));transform-origin:left}
 
 /* projects viewer */
-.pv{position:relative}
+.pv{position:relative;z-index:2}
+.pv .pin{will-change:opacity}
 .pv .pin{position:sticky;top:0;height:100svh;overflow:hidden;isolation:isolate}
 .pv .bgs{position:absolute;inset:0;z-index:0;background:#000}
-.pv .bg{position:absolute;inset:-4%;background-size:cover;background-position:center top;opacity:0;transform:scale(1.12);transition:opacity 1s ease,transform 7s ease-out;filter:brightness(.32) saturate(1.15) blur(var(--bl,0px))}
+.pv .bg{position:absolute;inset:0;background-size:cover;background-position:center top;opacity:0;transform:scale(1.1);transition:opacity .9s ease,transform 6s cubic-bezier(.2,.6,.3,1)}
+.pv .bg.on,.pv .bg.near{will-change:opacity,transform}
 .pv .bg.on{opacity:1;transform:scale(1)}
-.pv .bg.yours{background:radial-gradient(60% 60% at 70% 50%,rgba(255,90,31,.55),transparent 70%),#140b07;filter:none}
-.pv .tint{position:absolute;inset:0;z-index:1;pointer-events:none;transition:background 1s;
-  background:linear-gradient(90deg,rgba(15,13,12,.92) 0%,rgba(15,13,12,.55) 45%,rgba(15,13,12,.15) 100%),radial-gradient(50% 60% at 72% 55%,rgba(var(--rgb),.32),transparent 70%)}
-html[dir=rtl] .pv .tint{background:linear-gradient(270deg,rgba(15,13,12,.92) 0%,rgba(15,13,12,.55) 45%,rgba(15,13,12,.15) 100%),radial-gradient(50% 60% at 28% 55%,rgba(var(--rgb),.32),transparent 70%)}
-.pv .stage{position:absolute;inset:0;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;width:min(1240px,100% - 64px);margin:0 auto;gap:40px;padding-top:70px}
+.pv .bg.yours{background:radial-gradient(60% 60% at 70% 50%,rgba(255,90,31,.5),transparent 70%),#140b07}
+.pv .tint{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(15,13,12,.95) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.55) 100%),radial-gradient(50% 60% at 72% 55%,rgba(255,90,31,.28),transparent 70%)}
+html[dir=rtl] .pv .tint{background:linear-gradient(270deg,rgba(15,13,12,.95) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.55) 100%),radial-gradient(50% 60% at 28% 55%,rgba(255,90,31,.28),transparent 70%)}
+.pv .stage{position:absolute;inset:0;z-index:2;will-change:opacity,transform;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;width:min(1240px,100% - 64px);margin:0 auto;gap:40px;padding-top:70px}
 .pv .info{position:relative;min-height:420px}
 .pv .it{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;opacity:0;pointer-events:none;transform:translateY(30px);transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
 .pv .it.on{opacity:1;pointer-events:auto;transform:none;transition-delay:.15s}
 .pv .it.past{transform:translateY(-30px)}
 .pv .cnt{font-family:var(--disp);font-weight:900;font-size:15px;letter-spacing:.02em;color:var(--mute);direction:ltr;display:inline-flex;gap:10px;align-items:center}
-.pv .cnt b{color:var(--c)}
+.pv .cnt b{color:var(--or)}
 html[dir=rtl] .pv .cnt{align-self:flex-start}
-.pv .tag{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,236,217,.2);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(15,13,12,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.pv .tag{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(246,236,217,.2);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(15,13,12,.55)}
 .pv .tag i{width:8px;height:8px;border-radius:50%;background:#ffb38f}
 .pv .tag.live i{background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.2)}
 html[dir=rtl] .pv .tag{letter-spacing:0}
 .pv h3{font-family:var(--disp);font-weight:900;font-size:clamp(54px,7.4vw,120px);line-height:.86;letter-spacing:-.055em;text-transform:uppercase}
-.pv h3 span{color:var(--c);text-shadow:0 0 40px rgba(var(--rgb),.45)}
-.pv .cat{font-weight:700;color:var(--c);font-size:16px}
+.pv h3 span{color:var(--or)}
+.pv .cat{font-weight:700;color:var(--or);font-size:16px}
 .pv .it p{color:rgba(246,236,217,.75);font-size:17px;max-width:42ch}
 .pv .chips{display:flex;flex-wrap:wrap;gap:6px}
 .pv .chips span{border:1px solid rgba(246,236,217,.18);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;background:rgba(15,13,12,.35)}
 .pv .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
-.pv .btn.open{background:var(--c);color:#0f0d0c}
+.pv .btn.open{background:var(--or);color:#0f0d0c}
 .pv .btn.nx{border:1.5px solid rgba(246,236,217,.3);background:rgba(15,13,12,.4)}
 .pv .btn.nx:hover{border-color:var(--cream)}
 html[dir=rtl] .pv .btn.nx svg{transform:scaleX(-1)}
 .pv .phs{position:relative;height:min(76svh,700px);perspective:1600px}
-.pv .phs .ph{--pw:calc(min(76svh,700px) / 2.17);left:50%;top:0;margin-left:calc(var(--pw) / -2);opacity:0;pointer-events:none;
-  transform:translate3d(60%,8%,-300px) rotateY(-38deg) rotateZ(8deg);transition:transform 1s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
+.pv .phs .ph{--pw:calc(min(76svh,700px) / 2.17);left:50%;top:0;margin-left:calc(var(--pw) / -2);opacity:0;pointer-events:none;visibility:hidden;will-change:transform,opacity;
+  transform:translate3d(60%,8%,-300px) rotateY(-38deg) rotateZ(8deg);transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .5s ease,visibility 0s .9s}
+.pv .phs .ph.near{visibility:visible}
 .pv .phs .ph.past{transform:translate3d(-70%,-6%,-300px) rotateY(38deg) rotateZ(-8deg)}
-.pv .phs .ph.on{opacity:1;pointer-events:auto;transform:rotateY(-12deg) rotateZ(-2deg);animation:fl1 7s ease-in-out infinite}
+.pv .phs .ph.on{opacity:1;pointer-events:auto;visibility:visible;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .5s ease,visibility 0s;transform:rotateY(-12deg) rotateZ(-2deg);animation:fl1 7s ease-in-out infinite}
 html[dir=rtl] .pv .phs .ph.on{transform:rotateY(12deg) rotateZ(2deg)}
 .pv .phs .ph .scr>img.tall{animation-play-state:paused}
 .pv .phs .ph.on .scr>img.tall{animation-play-state:running}
-.pv .phs .shadow{position:absolute;left:50%;bottom:-24px;width:min(300px,70%);height:40px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(var(--rgb),.45),transparent);filter:blur(6px);transition:background 1s}
+.pv .phs .shadow{position:absolute;left:50%;bottom:-24px;width:min(300px,70%);height:40px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(255,90,31,.4),transparent)}
 /* your-site screen */
 .yours-scr{height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:22% 9% 10%;background:radial-gradient(90% 60% at 50% 30%,#ff7a45,#ff5a1f 55%,#c63d0c);color:var(--ink);text-align:center}
 .yours-scr .u{font-size:calc(var(--pw) * .05);font-weight:700;background:rgba(15,13,12,.15);border-radius:99px;padding:4px 10px;align-self:center;direction:ltr}
@@ -322,7 +329,7 @@ html[dir=rtl] .yours-scr b{font-family:"Cairo";letter-spacing:0;line-height:1.15
 .pv .rail{position:absolute;z-index:3;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px}
 html[dir=rtl] .pv .rail{right:auto;left:22px}
 .pv .rail button{width:8px;height:8px;border-radius:50%;background:rgba(246,236,217,.25);transition:all .4s;padding:0}
-.pv .rail button.on{height:28px;border-radius:99px;background:var(--c)}
+.pv .rail button.on{height:28px;border-radius:99px;background:var(--or)}
 .pv .swipe{display:none}
 @media (max-width:899px){
   .pv .stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;width:100%;gap:0;padding:74px 0 0;align-items:start}
@@ -336,30 +343,30 @@ html[dir=rtl] .pv .rail{right:auto;left:22px}
   .pv .it p{font-size:14.5px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
   .pv .chips{display:none}
   .pv .acts .btn{padding:12px 18px;font-size:14px}
-  .pv .tint{background:linear-gradient(180deg,rgba(15,13,12,.2) 0%,rgba(15,13,12,.55) 45%,rgba(15,13,12,.95) 72%),radial-gradient(70% 40% at 50% 28%,rgba(var(--rgb),.35),transparent 70%)!important}
+  .pv .tint{background:linear-gradient(180deg,rgba(15,13,12,.55) 0%,rgba(15,13,12,.75) 45%,rgba(15,13,12,.97) 70%),radial-gradient(70% 40% at 50% 28%,rgba(255,90,31,.3),transparent 70%)!important}
   .pv .rail{top:auto;bottom:auto;right:12px;top:calc(74px + min(22svh,200px));gap:8px}
   .pv .rail button{width:6px;height:6px}.pv .rail button.on{height:20px}
-  .pv .bg{filter:brightness(.4) saturate(1.1) blur(2px)}
 }
 @media (max-width:899px) and (max-height:700px){.pv .phs{height:38svh}.pv .phs .ph{--pw:calc(38svh / 2.17)}.pv .it p{-webkit-line-clamp:2}}
 
-/* menu overlay */
-.mo{position:fixed;inset:0;z-index:140;background:var(--ink);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
-  clip-path:circle(0% at var(--mx,92%) var(--my,4%));visibility:hidden;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s .8s}
-.mo.open{clip-path:circle(150% at var(--mx,92%) var(--my,4%));visibility:visible;transition:clip-path .8s cubic-bezier(.7,0,.2,1),visibility 0s}
-body.mo-on{overflow:hidden}
-.mo-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;padding-top:max(14px,env(safe-area-inset-top));background:rgba(15,13,12,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.mo-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-.mo-links::-webkit-scrollbar{display:none}
-.mo-links a{white-space:nowrap;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
-.mo-links a:hover{border-color:var(--or);color:var(--or)}
-.mo-x{flex:none;width:44px;height:44px;border-radius:50%;background:var(--or);color:var(--ink);display:grid;place-items:center}
-.mo-x svg{width:20px;height:20px}
-.mo-hero{padding:70px 0 10px}
-.mo-hero .h2{font-size:clamp(56px,11vw,150px)}
-.mo .sec{padding:80px 0}
-.mo .contact{padding-bottom:60px}
-@media (max-width:640px){.mo-links{display:none}.mo .sec{padding:60px 0}}
+/* menu overlay (links only) */
+.nm{position:fixed;inset:0;z-index:140;background:var(--ink);display:flex;flex-direction:column;
+  clip-path:circle(0% at var(--mx,92%) var(--my,4%));visibility:hidden;transition:clip-path .7s cubic-bezier(.7,0,.2,1),visibility 0s .7s}
+.nm.open{clip-path:circle(150% at var(--mx,92%) var(--my,4%));visibility:visible;transition:clip-path .7s cubic-bezier(.7,0,.2,1),visibility 0s}
+body.nm-on{overflow:hidden}
+.nm-top{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;padding-top:max(14px,env(safe-area-inset-top))}
+.nm-x{width:46px;height:46px;border-radius:50%;background:var(--or);color:var(--ink);display:grid;place-items:center}
+.nm-x svg{width:20px;height:20px}
+.nm-l{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;width:min(1200px,100% - 40px);margin:0 auto}
+.nm-l a{display:flex;align-items:baseline;gap:16px;font-family:var(--disp);font-weight:900;font-size:clamp(44px,8vw,110px);line-height:1;letter-spacing:-.05em;text-transform:uppercase;
+  opacity:0;transform:translateY(30px);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1),color .2s}
+.nm-l a i{font-style:normal;font-size:14px;letter-spacing:0;color:var(--or);font-family:var(--body);font-weight:700;min-width:24px}
+.nm-l a:hover{color:var(--or)}
+html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-height:1.35;font-size:clamp(38px,7vw,90px)}
+.nm.open .nm-l a{opacity:1;transform:none}
+.nm.open .nm-l a:nth-child(2){transition-delay:.05s}.nm.open .nm-l a:nth-child(3){transition-delay:.1s}.nm.open .nm-l a:nth-child(4){transition-delay:.15s}.nm.open .nm-l a:nth-child(5){transition-delay:.2s}
+.nm-b{display:flex;flex-wrap:wrap;gap:10px;padding:20px;padding-bottom:max(24px,env(safe-area-inset-bottom));width:min(1200px,100% - 40px);margin:0 auto;border-top:1px solid var(--line)}
+
 
 </style>
 </head>
@@ -374,15 +381,15 @@ body.mo-on{overflow:hidden}
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg>
     <span data-k="wa">WhatsApp</span>
   </a>
-  <button class="menu-b" id="menuB" aria-expanded="false" aria-controls="mo"><span class="bars"></span><span data-k="menu">Menu</span></button></div>
+  <button class="menu-b" id="menuB" aria-expanded="false" aria-controls="nm"><span class="bars"></span><span data-k="menu">Menu</span></button></div>
 </nav>
 
 <header class="hx" id="top">
   <div class="hx-ph" aria-hidden="true"><div class="rig" id="rig">
-    <div class="ph h4" style="--rgb:213,75,255"><div class="scr"><img class="tall" src="assets/img/tall-sv.jpg" alt="" style="animation-delay:-9s"></div></div>
-    <div class="ph h3" style="--rgb:255,161,43"><div class="scr"><img class="tall" src="assets/img/tall-tj.jpg" alt="" style="animation-delay:-5s"></div></div>
-    <div class="ph h2" style="--rgb:255,106,31"><div class="scr"><img class="tall" src="assets/img/tall-bb.jpg" alt="" style="animation-delay:-11s"></div></div>
-    <div class="ph h1" style="--rgb:255,75,62"><div class="scr"><img class="tall" src="assets/img/tall-kc.jpg" alt=""></div></div>
+    <div class="ph h4"><div class="scr"><img class="tall" src="assets/img/tall-sv.jpg" alt="" style="animation-delay:-9s"></div></div>
+    <div class="ph h3"><div class="scr"><img class="tall" src="assets/img/tall-tj.jpg" alt="" style="animation-delay:-5s"></div></div>
+    <div class="ph h2"><div class="scr"><img class="tall" src="assets/img/tall-bb.jpg" alt="" style="animation-delay:-11s"></div></div>
+    <div class="ph h1"><div class="scr"><img class="tall" src="assets/img/tall-kc.jpg" alt=""></div></div>
   </div></div>
   <div class="hx-txt"><div class="wrap">
     <div class="kicker fade"><span class="dot"></span><span data-k="kick">Web design studio · Lebanon 🇱🇧</span></div>
@@ -398,7 +405,7 @@ body.mo-on{overflow:hidden}
 </header>
 
 <section class="say" id="say" aria-label="Why a website">
-  <div class="pin" id="sayPin"><div id="lines"></div><div class="bar"><i></i></div></div>
+  <div class="pin" id="sayPin"><div class="glw" id="glw"></div><div id="lines"></div><div class="bar"><i></i></div></div>
 </section>
 
 <section class="pv" id="work" aria-label="Our work">
@@ -408,14 +415,6 @@ body.mo-on{overflow:hidden}
     <div class="rail" id="rail"></div>
   </div>
 </section>
-
-<div class="mo" id="mo" role="dialog" aria-modal="true" aria-label="Menu">
-  <div class="mo-top">
-    <a href="#top" class="brand" data-close><img src="assets/img/logo.jpg" alt=""><span class="bt">Yalla Website</span></a>
-    <div class="mo-links"><a href="#services" data-k="n2">Services</a><a href="#pricing" data-k="n5">Pricing</a><a href="#how" data-k="n3">How it works</a><a href="#contact" data-k="n4">Contact</a></div>
-    <button class="mo-x" id="moX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-  </div>
-  <div class="wrap mo-hero"><div class="eyebrow" data-k="moE">Yalla Website</div><h2 class="h2" data-k="moH">Everything<br><em>else.</em></h2></div>
 
 <section class="sec" id="services">
   <div class="wrap">
@@ -512,6 +511,12 @@ body.mo-on{overflow:hidden}
   <a href="#top" class="brand"><img src="assets/img/logo.jpg" alt="">Yalla Website</a>
   <span data-k="foot">Made in Lebanon 🇱🇧 · © 2026 Yalla Website</span>
 </div></footer>
+
+<div class="nm" id="nm" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="nm-top"><a href="#top" class="brand" data-nav="top"><img src="assets/img/logo.jpg" alt=""><span class="bt">Yalla Website</span></a>
+    <button class="nm-x" id="nmX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <nav class="nm-l"><a href="#work" data-nav="work"><i>01</i><span data-k="n1">Work</span></a><a href="#services" data-nav="services"><i>02</i><span data-k="n2">Services</span></a><a href="#pricing" data-nav="pricing"><i>03</i><span data-k="n5">Pricing</span></a><a href="#how" data-nav="how"><i>04</i><span data-k="n3">How it works</span></a><a href="#contact" data-nav="contact"><i>05</i><span data-k="n4">Contact</span></a></nav>
+  <div class="nm-b"><a class="btn fire sm" data-wa href="#" target="_blank" rel="noopener"><span data-k="wa">WhatsApp</span></a><a class="btn ghost sm" href="https://www.instagram.com/yallawebsite.lb/" target="_blank" rel="noopener">@yallawebsite.lb</a></div>
 </div>
 
 <a class="fab" id="fab" data-wa href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2s.2-1.1.1-1.2-.2-.2-.4-.3z"/></svg></a>
@@ -618,7 +623,7 @@ body.mo-on{overflow:hidden}
   Object.assign(AR, {
     kick:'استوديو تصميم مواقع · لبنان 🇱🇧', h1a:'مواقع', h1b:'بتستاهل', h1c:'تنفتح.',
     lede:'مواقع سينمائية، معمولة للتلفون أولاً، <b>لمطاعم ومحلات وبراندات لبنانية.</b> بالعربي والإنكليزي.',
-    cta1:'يلا نبلّش', cta2:'شوف شغلنا', cue:'سكرول', menu:'القائمة', moE:'Yalla Website', moH:'كل شي<br><em>تاني.</em>'
+    cta1:'يلا نبلّش', cta2:'شوف شغلنا', cue:'سكرول', menu:'القائمة'
   });
   EN.cue = 'Scroll';
 
@@ -629,10 +634,10 @@ body.mo-on{overflow:hidden}
     ar: [['كل بزنس عندو <em>إنستغرام.</em>'], ['بس مين عندو <em>website؟</em>'], ['العالم بتفتّش عليك عغوغل…'], ['وما بتلاقي <em>شي.</em>'], ['يلا.', '', 'yl']]
   };
   const UI = {
-    en: { open: 'Open the site ↗', next: 'Next', yoursT: 'This one is<br><span>yours.</span>', yoursP: 'Restaurant, café, shop or brand. If people keep asking “3andak website?”, it\'s time.',
-          start: 'Start a project', prices: 'See prices', yoursCat: 'Your business · Next', url: 'yourbusiness.com', scrB: 'Your<br>business', view: 'OPEN' },
-    ar: { open: 'افتح الموقع ↗', next: 'التالي', yoursT: 'هيدا<br><span>إلك.</span>', yoursP: 'مطعم، مقهى، محل أو براند. إذا العالم عم تسألك «عندك website؟»، صار الوقت.',
-          start: 'يلا نبلّش', prices: 'شوف الأسعار', yoursCat: 'بزنسك · التالي', url: 'yourbusiness.com', scrB: 'بزنسك<br>هون', view: 'افتح' }
+    en: { open: 'Open the site ↗', next: 'Next', yoursT: 'Now it\'s<br><span>your turn.</span>', yoursP: 'Restaurant, café, shop or brand. Your own design, Arabic + English, live in under 7 days. Yalla, let\'s build yours.',
+          start: 'Start your website', prices: 'What you get ↓', yoursCat: 'Your turn', url: 'yourbusiness.com', scrB: 'Your<br>business', view: 'OPEN' },
+    ar: { open: 'افتح الموقع ↗', next: 'التالي', yoursT: 'هلّق<br><span>دورك.</span>', yoursP: 'مطعم، مقهى، محل أو براند. تصميم خاص فيك، عربي وإنكليزي، وجاهز بأقل من 7 أيام. يلا نعمل موقعك.',
+          start: 'يلا نبلّش موقعك', prices: 'شو بتاخد ↓', yoursCat: 'دورك', url: 'yourbusiness.com', scrB: 'بزنسك<br>هون', view: 'افتح' }
   };
   const U = k => UI[lang][k];
 
@@ -660,7 +665,7 @@ body.mo-on{overflow:hidden}
   }
 
   /* ---------- fading lines ---------- */
-  const say = document.getElementById('say'), lines = document.getElementById('lines'), sayPin = document.getElementById('sayPin');
+  const say = document.getElementById('say'), lines = document.getElementById('lines'), sayPin = document.getElementById('sayPin'), glw = document.getElementById('glw'), hx = document.getElementById('top');
   let lnEls = [];
   function renderSay() {
     lines.innerHTML = SAY[lang].map(l => `<div class="ln${l[2] ? ' ' + l[2] : ''}"><b>${l[0]}</b>${l[1] ? `<small>${l[1]}</small>` : ''}</div>`).join('');
@@ -668,13 +673,15 @@ body.mo-on{overflow:hidden}
   }
 
   /* ---------- projects viewer ---------- */
-  const pv = document.getElementById('work'), bgs = document.getElementById('bgs'), info = document.getElementById('info'), phs = document.getElementById('phs'), rail = document.getElementById('rail'), pvPin = document.getElementById('pvPin');
+  const pv = document.getElementById('work'), bgs = document.getElementById('bgs'), info = document.getElementById('info'), phs = document.getElementById('phs'), rail = document.getElementById('rail'), pvPin = document.getElementById('pvPin'), stage = pvPin.querySelector('.stage');
+  const steps = document.getElementById('steps'), stepEls = [...steps.querySelectorAll('.step')], yalla = document.getElementById('yalla');
   const TALL = { 'Karim Catering': 'tall-kc.jpg', 'Boo Burger': 'tall-bb.jpg', "Toto's Joint": 'tall-tj.jpg', 'Dr. Smashed': 'tall-ds.jpg', 'SAVIICII': 'tall-sv.jpg', 'Halabi Bites': 'tall-hb.jpg' };
+  PROJ.forEach(p => p.c = '#ff5a1f');
   const N = PROJ.length + 1; let idx = -1;
   const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   function renderPV() {
-    const cnt = i => `<span class="cnt" dir="ltr"><b>${String(i + 1).padStart(2, '0')}</b>/ ${String(N).padStart(2, '0')}</span>`;
-    bgs.innerHTML = PROJ.map(p => `<div class="bg" style="background-image:url(assets/img/${p.d})"></div>`).join('') + '<div class="bg yours"></div>';
+    const cnt = i => `<span class="cnt"><b>${String(i + 1).padStart(2, '0')}</b>/ ${String(N).padStart(2, '0')}</span>`;
+    bgs.innerHTML = PROJ.map(p => `<div class="bg" data-bg="assets/img/${p.d}"></div>`).join('') + '<div class="bg yours"></div>';
     info.innerHTML = PROJ.map((p, i) => `<div class="it" style="--c:${p.c};--rgb:${hex(p.c)}">${cnt(i)}
         <span class="tag${p.st !== 'concept' ? ' live' : ''}"><i></i>${L(ST[p.st])}</span>
         <h3>${p.name.replace(/^(\S+)/, '<span>$1</span>')}</h3><div class="cat">${L(p.cat)}</div><p>${L(p.p)}</p>
@@ -682,9 +689,9 @@ body.mo-on{overflow:hidden}
         <div class="acts"><a class="btn open" href="${p.url}" target="_blank" rel="noopener">${U('open')}</a><button class="btn nx" data-go="${i + 1}"><span>${U('next')}</span>${arrow}</button></div></div>`).join('') +
       `<div class="it" style="--c:#ff5a1f;--rgb:255,90,31">${cnt(N - 1)}<span class="tag live"><i></i>${U('yoursCat')}</span>
         <h3>${U('yoursT')}</h3><p>${U('yoursP')}</p>
-        <div class="acts"><a class="btn fire mag" data-wa href="#" target="_blank" rel="noopener">${U('start')}</a><button class="btn nx" data-menu="pricing"><span>${U('prices')}</span></button></div></div>`;
+        <div class="acts"><a class="btn fire mag" data-wa href="#" target="_blank" rel="noopener">${U('start')}</a><a class="btn nx" href="#services" data-nav="services"><span>${U('prices')}</span></a></div></div>`;
     phs.innerHTML = PROJ.map(p => { const t = TALL[p.name];
-        return `<a class="ph" href="${p.url}" target="_blank" rel="noopener" tabindex="-1" data-view style="--rgb:${hex(p.c)}" aria-label="${p.name}"><div class="scr"><img class="${t ? 'tall' : 'fit'}" src="assets/img/${t || p.m}" alt="${p.name} website on a phone" loading="lazy"></div></a>`; }).join('') +
+        return `<a class="ph" href="${p.url}" target="_blank" rel="noopener" tabindex="-1" data-view style="--rgb:${hex(p.c)}" aria-label="${p.name}"><div class="scr"><img class="${t ? 'tall' : 'fit'}" data-src="assets/img/${t || p.m}" alt="${p.name} website on a phone" decoding="async"></div></a>`; }).join('') +
       `<a class="ph" data-wa href="#" target="_blank" rel="noopener" tabindex="-1" data-view style="--rgb:255,90,31" aria-label="Start a project"><div class="scr"><div class="yours-scr"><span class="u">${U('url')}</span><b>${U('scrB')}</b><div class="q">?</div><div class="sk"><i></i><i></i></div></div></div></a><div class="shadow"></div>`;
     rail.innerHTML = Array.from({ length: N }, (_, i) => `<button aria-label="${i < PROJ.length ? PROJ[i].name : 'Yours'}" data-go="${i}"></button>`).join('');
     const k = idx; idx = -1; setIdx(Math.max(0, k));
@@ -693,19 +700,21 @@ body.mo-on{overflow:hidden}
     i = clamp(i, 0, N - 1); if (i === idx) return; idx = i;
     const c = i < PROJ.length ? PROJ[i].c : '#ff5a1f';
     pvPin.style.setProperty('--rgb', hex(c)); pvPin.style.setProperty('--c', c);
-    [bgs.children, info.children].forEach(set => [...set].forEach((el, k) => { el.classList.toggle('on', k === i); el.classList.toggle('past', k < i); }));
-    [...phs.querySelectorAll('.ph')].forEach((el, k) => { el.classList.toggle('on', k === i); el.classList.toggle('past', k < i); el.tabIndex = k === i ? 0 : -1; });
+    const near = k => Math.abs(k - i) <= 1;
+    [...bgs.children].forEach((el, k) => { if (near(k) && el.dataset.bg) { el.style.backgroundImage = `url(${el.dataset.bg})`; delete el.dataset.bg; } el.classList.toggle('on', k === i); el.classList.toggle('near', near(k)); });
+    [...info.children].forEach((el, k) => { el.classList.toggle('on', k === i); el.classList.toggle('past', k < i); });
+    [...phs.querySelectorAll('.ph')].forEach((el, k) => { const im = el.querySelector('img[data-src]'); if (im && near(k)) { im.src = im.dataset.src; im.removeAttribute('data-src'); }
+      el.classList.toggle('on', k === i); el.classList.toggle('past', k < i); el.classList.toggle('near', near(k)); el.tabIndex = k === i ? 0 : -1; });
     [...rail.children].forEach((el, k) => el.classList.toggle('on', k === i));
   }
+  const HOLD = .6; /* extra scroll the last step stays on screen */
+  const stepLen = () => (pv.offsetHeight - innerHeight) / (N - 1 + HOLD);
   function go(i) {
     i = clamp(i, 0, N - 1);
     const top = pv.getBoundingClientRect().top + scrollY;
-    scrollTo({ top: top + i * innerHeight + 2, behavior: reduce ? 'auto' : 'smooth' });
+    scrollTo({ top: top + i * stepLen() + 2, behavior: reduce ? 'auto' : 'smooth' });
   }
-  pv.addEventListener('click', e => {
-    const g = e.target.closest('[data-go]'); if (g) { go(+g.dataset.go); return; }
-    const m = e.target.closest('[data-menu]'); if (m) openMenu(m.dataset.menu, e);
-  });
+  pv.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if (g) go(+g.dataset.go); });
   /* swipe between projects */
   let tx = 0, ty = 0, tt = 0;
   pvPin.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; tt = Date.now(); }, { passive: true });
@@ -714,7 +723,7 @@ body.mo-on{overflow:hidden}
     if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3 && Date.now() - tt < 800) go(idx + ((dx < 0) !== (lang === 'ar') ? 1 : -1));
   }, { passive: true });
   addEventListener('keydown', e => {
-    if (document.body.classList.contains('mo-on')) { if (e.key === 'Escape') closeMenu(); return; }
+    if (document.body.classList.contains('nm-on')) { if (e.key === 'Escape') closeMenu(); return; }
     const r = pv.getBoundingClientRect(); if (r.top > 10 || r.bottom < innerHeight - 10) return;
     if (e.key === 'ArrowRight') go(idx + (lang === 'ar' ? -1 : 1)); if (e.key === 'ArrowLeft') go(idx + (lang === 'ar' ? 1 : -1));
   });
@@ -726,8 +735,9 @@ body.mo-on{overflow:hidden}
     const w = innerWidth, h = innerHeight;
     if (!force && w === lastW && Math.abs(h - lastH) < 160) return;
     lastW = w; lastH = h;
-    say.style.height = (SAY.en.length * .9 + 1) * h + 'px';
-    pv.style.height = N * h + 'px';
+    say.style.height = (SAY.en.length * .9 + 1.8) * h + 'px';
+    pv.style.marginTop = -h + 'px';
+    pv.style.height = (N + HOLD) * h + 'px';
   }
 
   /* ---------- scroll ---------- */
@@ -738,10 +748,11 @@ body.mo-on{overflow:hidden}
     const vh = innerHeight;
     nav.classList.toggle('solid', scrollY > 30);
     fab.classList.toggle('on', scrollY > vh * .7);
-    // hero phones drift apart
+    // hero phones drift up; pause hero when gone
     if (scrollY < vh * 1.2) rig.style.translate = `0 ${(-scrollY * .25).toFixed(1)}px`;
-    // fading lines
-    const sr = say.getBoundingClientRect(), sp = clamp(-sr.top / (say.offsetHeight - vh), 0, 1), n = lnEls.length;
+    hx.classList.toggle('off', scrollY > vh);
+    // fading lines: the first one starts while the section is still coming up
+    const sr = say.getBoundingClientRect(), lead = vh * .55, sp = clamp((lead - sr.top) / (say.offsetHeight - vh + lead), 0, 1), n = lnEls.length;
     sayPin.style.setProperty('--sp', sp);
     const f = sp * n;
     lnEls.forEach((el, i) => {
@@ -750,50 +761,56 @@ body.mo-on{overflow:hidden}
       const last = i === n - 1;
       if (t < 0) { o = 0; y = 40; b = 14; }
       else if (t < .35) { const k = t / .35; o = k; y = 40 * (1 - k); b = 14 * (1 - k); }
-      else if (t < .7 || last) { o = 1; y = 0; b = 0; if (last) { const k = clamp((t - .4) / .6, 0, 1); s = 1 + k * .5; o = 1 - clamp((t - .75) / .25, 0, 1); } }
+      else if (t < .7 || last) { o = 1; y = 0; b = 0; if (last) { const k = clamp((t - .35) / .65, 0, 1); s = 1 + k * .35; o = 1 - clamp((t - .55) / .45, 0, 1) * .75; } }
       else if (t < 1) { const k = (t - .7) / .3; o = 1 - k; y = -40 * k; b = 10 * k; }
       else { o = 0; y = -40; b = 10; }
-      el.style.opacity = o.toFixed(3); el.style.transform = `translateY(${y.toFixed(1)}px) scale(${s.toFixed(3)})`; el.style.filter = b > .2 ? `blur(${b.toFixed(1)}px)` : 'none';
+      el.style.opacity = o.toFixed(3); el.style.transform = `translate3d(0,${y.toFixed(1)}px,0) scale(${s.toFixed(3)})`;
     });
-    sayPin.style.setProperty('--sg', (f > n - 1 ? .35 * clamp(f - (n - 1), 0, 1) : 0).toFixed(3));
+    glw.style.opacity = (f > n - 1 ? clamp(f - (n - 1), 0, 1) : 0).toFixed(3);
     // projects
     const pr = pv.getBoundingClientRect();
-    setIdx(Math.round(clamp(-pr.top / vh, 0, N - 1)));
+    // coming in: hold the viewer still on screen and cross-fade it over "Yalla."
+    if (pr.top > 0 && pr.top < vh) { pvPin.style.opacity = clamp(1.1 - pr.top / vh * 1.1, 0, 1).toFixed(3); pvPin.style.transform = `translate3d(0,${(-pr.top).toFixed(1)}px,0)`; }
+    else if (pvPin.style.transform) { pvPin.style.opacity = pr.top >= vh ? '0' : ''; pvPin.style.transform = ''; }
+    if (pr.bottom > 0 && pr.top < vh) {
+      setIdx(Math.round(clamp(-pr.top / stepLen(), 0, N - 1)));
+      // leaving: the stage drifts up and fades while the next part comes in
+      const ex = clamp(1 - pr.bottom / vh, 0, 1);
+      stage.style.opacity = (1 - ex * 1.3).toFixed(3); stage.style.transform = ex ? `translate3d(0,${(-ex * 60).toFixed(1)}px,0) scale(${(1 - ex * .06).toFixed(3)})` : '';
+      bgs.style.opacity = (1 - ex).toFixed(3);
+    }
+    // how-it-works rail + contact fill
+    const st = steps.getBoundingClientRect();
+    if (st.top < vh && st.bottom > 0) {
+      steps.style.setProperty('--sp', clamp((vh * .6 - st.top) / st.height, 0, 1));
+      stepEls.forEach(s2 => s2.classList.toggle('on', s2.getBoundingClientRect().top < vh * .6));
+    }
+    const yr = yalla.getBoundingClientRect();
+    if (yr.top < vh && yr.bottom > 0) yalla.style.backgroundSize = (clamp((vh - yr.top) / (vh * .7), 0, 1) * 100) + '% 100%';
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   addEventListener('resize', () => { size(); onScroll(); });
 
-  /* ---------- menu overlay ---------- */
-  const mo = document.getElementById('mo'), menuB = document.getElementById('menuB');
-  const steps = document.getElementById('steps'), stepEls = [...steps.querySelectorAll('.step')], yalla = document.getElementById('yalla');
-  function openMenu(target, e) {
-    if (e && e.clientX != null) { mo.style.setProperty('--mx', e.clientX + 'px'); mo.style.setProperty('--my', e.clientY + 'px'); }
-    else { mo.style.removeProperty('--mx'); mo.style.removeProperty('--my'); }
-    mo.classList.add('open'); document.body.classList.add('mo-on'); menuB.setAttribute('aria-expanded', 'true');
-    mo.scrollTop = 0;
-    if (target) setTimeout(() => { const t = document.getElementById(target); if (t) mo.scrollTo({ top: t.offsetTop - 70, behavior: reduce ? 'auto' : 'smooth' }); }, 350);
-    onMo();
+  /* ---------- menu (links only) ---------- */
+  const nm = document.getElementById('nm'), menuB = document.getElementById('menuB');
+  function openMenu(e) {
+    if (e && e.clientX) { nm.style.setProperty('--mx', e.clientX + 'px'); nm.style.setProperty('--my', e.clientY + 'px'); }
+    nm.classList.add('open'); document.body.classList.add('nm-on'); menuB.setAttribute('aria-expanded', 'true');
   }
-  function closeMenu() { mo.classList.remove('open'); document.body.classList.remove('mo-on'); menuB.setAttribute('aria-expanded', 'false'); }
-  menuB.addEventListener('click', e => openMenu(null, e));
-  document.getElementById('moX').addEventListener('click', closeMenu);
-  mo.addEventListener('click', e => {
-    const a = e.target.closest('a[href^="#"]'); if (!a) return;
-    e.preventDefault(); const id = a.getAttribute('href').slice(1);
-    if (a.hasAttribute('data-close') || id === 'top') { closeMenu(); return; }
-    const t = document.getElementById(id); if (t) mo.scrollTo({ top: t.offsetTop - 70, behavior: reduce ? 'auto' : 'smooth' });
+  function closeMenu() { nm.classList.remove('open'); document.body.classList.remove('nm-on'); menuB.setAttribute('aria-expanded', 'false'); }
+  menuB.addEventListener('click', openMenu);
+  document.getElementById('nmX').addEventListener('click', closeMenu);
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-nav]'); if (!a) return;
+    e.preventDefault(); const id = a.dataset.nav, wasOpen = nm.classList.contains('open'); closeMenu();
+    setTimeout(() => {
+      if (id === 'work') return go(0);
+      if (id === 'top') return scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      const t = document.getElementById(id); if (t) scrollTo({ top: t.getBoundingClientRect().top + scrollY - 60, behavior: reduce ? 'auto' : 'smooth' });
+    }, wasOpen ? 250 : 0);
   });
-  function onMo() {
-    const vh = innerHeight;
-    const st = steps.getBoundingClientRect(), stp = clamp((vh * .6 - st.top) / st.height, 0, 1);
-    steps.style.setProperty('--sp', stp);
-    stepEls.forEach(s => s.classList.toggle('on', s.getBoundingClientRect().top < vh * .6));
-    const yr = yalla.getBoundingClientRect(), yp = clamp((vh - yr.top) / (vh * .7), 0, 1);
-    yalla.style.backgroundSize = (yp * 100) + '% 100%';
-  }
-  mo.addEventListener('scroll', () => requestAnimationFrame(onMo), { passive: true });
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { root: mo, threshold: .12 });
-  mo.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(el); });
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12, rootMargin: '0px 0px -6% 0px' });
+  document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 90 + 'ms'; io.observe(el); });
 
   /* ---------- language ---------- */
   function apply(l) {
