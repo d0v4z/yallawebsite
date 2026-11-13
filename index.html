@@ -304,6 +304,9 @@ html[dir=rtl] .pv .tag{letter-spacing:0}
 .pv .chips{display:flex;flex-wrap:wrap;gap:6px}
 .pv .chips span{border:1px solid rgba(246,236,217,.18);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:700;background:rgba(15,13,12,.35)}
 .pv .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.pv .allw{align-self:flex-start;font-weight:700;font-size:15px;color:var(--cream);border-bottom:1.5px solid var(--or);padding-bottom:2px;margin-top:4px;opacity:.85;transition:opacity .2s,color .2s}
+.pv .allw:hover{opacity:1;color:var(--or)}
+@media (max-width:899px){.pv .allw{font-size:14px;margin-top:2px}}
 .pv .btn.open{background:var(--or);color:#0f0d0c}
 .pv .btn.nx{border:1.5px solid rgba(246,236,217,.3);background:rgba(15,13,12,.4)}
 .pv .btn.nx:hover{border-color:var(--cream)}
@@ -360,13 +363,13 @@ body.nm-on{overflow:hidden}
 .nm-x{width:46px;height:46px;border-radius:50%;background:var(--or);color:var(--ink);display:grid;place-items:center}
 .nm-x svg{width:20px;height:20px}
 .nm-l{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;width:min(1200px,100% - 40px);margin:0 auto}
-.nm-l a{display:flex;align-items:baseline;gap:16px;font-family:var(--disp);font-weight:900;font-size:clamp(44px,8vw,110px);line-height:1;letter-spacing:-.05em;text-transform:uppercase;
+.nm-l a{display:flex;align-items:baseline;gap:16px;font-family:var(--disp);font-weight:900;font-size:clamp(40px,7vw,96px);line-height:1;letter-spacing:-.05em;text-transform:uppercase;
   opacity:0;transform:translateY(30px);transition:opacity .5s,transform .6s cubic-bezier(.2,.8,.2,1),color .2s}
 .nm-l a i{font-style:normal;font-size:14px;letter-spacing:0;color:var(--or);font-family:var(--body);font-weight:700;min-width:24px}
 .nm-l a:hover{color:var(--or)}
 html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-height:1.35;font-size:clamp(38px,7vw,90px)}
 .nm.open .nm-l a{opacity:1;transform:none}
-.nm.open .nm-l a:nth-child(2){transition-delay:.05s}.nm.open .nm-l a:nth-child(3){transition-delay:.1s}.nm.open .nm-l a:nth-child(4){transition-delay:.15s}.nm.open .nm-l a:nth-child(5){transition-delay:.2s}
+.nm.open .nm-l a:nth-child(2){transition-delay:.05s}.nm.open .nm-l a:nth-child(3){transition-delay:.1s}.nm.open .nm-l a:nth-child(4){transition-delay:.15s}.nm.open .nm-l a:nth-child(5){transition-delay:.2s}.nm.open .nm-l a:nth-child(6){transition-delay:.25s}
 .nm-b{display:flex;flex-wrap:wrap;gap:10px;padding:20px;padding-bottom:max(24px,env(safe-area-inset-bottom));width:min(1200px,100% - 40px);margin:0 auto;border-top:1px solid var(--line)}
 
 
@@ -392,9 +395,8 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   <div class="pin" id="sayPin">
 <header class="hx" id="top">
   <div class="hx-ph" aria-hidden="true"><div class="rig" id="rig">
-    <div class="ph h4"><div class="scr"><img class="tall" src="assets/img/tall-sv.jpg" alt="" style="animation-delay:-9s"></div></div>
-    <div class="ph h3"><div class="scr"><img class="tall" src="assets/img/tall-tj.jpg" alt="" style="animation-delay:-5s"></div></div>
-    <div class="ph h2"><div class="scr"><img class="tall" src="assets/img/tall-bb.jpg" alt="" style="animation-delay:-11s"></div></div>
+    <div class="ph h3"><div class="scr"><img class="fit" src="assets/img/tl-phone.jpg" alt=""></div></div>
+    <div class="ph h2"><div class="scr"><img class="tall" src="assets/img/tall-sv.jpg" alt="" style="animation-delay:-9s"></div></div>
     <div class="ph h1"><div class="scr"><img class="tall" src="assets/img/tall-kc.jpg" alt=""></div></div>
   </div></div>
   <div class="hx-txt"><div class="wrap">
@@ -519,7 +521,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
 <div class="nm" id="nm" role="dialog" aria-modal="true" aria-label="Menu">
   <div class="nm-top"><a href="#top" class="brand" data-nav="top"><img src="assets/img/logo.jpg" alt=""><span class="bt">Yalla Website</span></a>
     <button class="nm-x" id="nmX" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
-  <nav class="nm-l"><a href="#work" data-nav="work"><i>01</i><span data-k="n1">Work</span></a><a href="#services" data-nav="services"><i>02</i><span data-k="n2">Services</span></a><a href="#pricing" data-nav="pricing"><i>03</i><span data-k="n5">Pricing</span></a><a href="#how" data-nav="how"><i>04</i><span data-k="n3">How it works</span></a><a href="#contact" data-nav="contact"><i>05</i><span data-k="n4">Contact</span></a></nav>
+  <nav class="nm-l"><a href="#work" data-nav="work"><i>01</i><span data-k="n1">Work</span></a><a href="#services" data-nav="services"><i>02</i><span data-k="n2">Services</span></a><a href="#pricing" data-nav="pricing"><i>03</i><span data-k="n5">Pricing</span></a><a href="#how" data-nav="how"><i>04</i><span data-k="n3">How it works</span></a><a href="#contact" data-nav="contact"><i>05</i><span data-k="n4">Contact</span></a><a href="portfolio/"><i>06</i><span data-k="n6">Full portfolio</span></a></nav>
   <div class="nm-b"><a class="btn fire sm" data-wa href="#" target="_blank" rel="noopener"><span data-k="wa">WhatsApp</span></a><a class="btn ghost sm" href="https://www.instagram.com/yallawebsite.lb/" target="_blank" rel="noopener">@yallawebsite.lb</a></div>
 </div>
 
@@ -627,7 +629,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   Object.assign(AR, {
     kick:'استوديو تصميم مواقع · لبنان 🇱🇧', h1a:'مواقع', h1b:'بتستاهل', h1c:'تنفتح.',
     lede:'مواقع سينمائية، معمولة للتلفون أولاً، <b>لمطاعم ومحلات وبراندات لبنانية.</b> بالعربي والإنكليزي.',
-    cta1:'يلا نبلّش', cta2:'شوف شغلنا', cue:'سكرول', menu:'القائمة'
+    cta1:'يلا نبلّش', cta2:'شوف شغلنا', n6:'كل شغلنا', cue:'سكرول', menu:'القائمة'
   });
   EN.cue = 'Scroll';
 
@@ -639,9 +641,9 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   };
   const UI = {
     en: { open: 'Open the site ↗', next: 'Next', yoursT: 'Now it\'s<br><span>your turn.</span>', yoursP: 'Restaurant, café, shop or brand. Your own design, Arabic + English, live in under 7 days. Yalla, let\'s build yours.',
-          start: 'Start your website', prices: 'What you get ↓', yoursCat: 'Your turn', url: 'yourbusiness.com', scrB: 'Your<br>business', view: 'OPEN' },
+          start: 'Start your website', all: 'View full portfolio →', prices: 'What you get ↓', yoursCat: 'Your turn', url: 'yourbusiness.com', scrB: 'Your<br>business', view: 'OPEN' },
     ar: { open: 'افتح الموقع ↗', next: 'التالي', yoursT: 'هلّق<br><span>دورك.</span>', yoursP: 'مطعم، مقهى، محل أو براند. تصميم خاص فيك، عربي وإنكليزي، وجاهز بأقل من 7 أيام. يلا نعمل موقعك.',
-          start: 'يلا نبلّش موقعك', prices: 'شو بتاخد ↓', yoursCat: 'دورك', url: 'yourbusiness.com', scrB: 'بزنسك<br>هون', view: 'افتح' }
+          start: 'يلا نبلّش موقعك', all: 'شوف كل شغلنا ←', prices: 'شو بتاخد ↓', yoursCat: 'دورك', url: 'yourbusiness.com', scrB: 'بزنسك<br>هون', view: 'افتح' }
   };
   const U = k => UI[lang][k];
 
@@ -680,6 +682,7 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
   const pv = document.getElementById('work'), bgs = document.getElementById('bgs'), info = document.getElementById('info'), phs = document.getElementById('phs'), rail = document.getElementById('rail'), pvPin = document.getElementById('pvPin'), stage = pvPin.querySelector('.stage');
   const steps = document.getElementById('steps'), stepEls = [...steps.querySelectorAll('.step')], yalla = document.getElementById('yalla');
   const TALL = { 'Karim Catering': 'tall-kc.jpg', 'Boo Burger': 'tall-bb.jpg', "Toto's Joint": 'tall-tj.jpg', 'Dr. Smashed': 'tall-ds.jpg', 'SAVIICII': 'tall-sv.jpg', 'Halabi Bites': 'tall-hb.jpg' };
+  for (let k = PROJ.length - 1; k >= 0; k--) if (!['Karim Catering', 'TechLab', 'SAVIICII'].includes(PROJ[k].name)) PROJ.splice(k, 1);
   PROJ.forEach(p => p.c = '#ff5a1f');
   const N = PROJ.length + 1; let idx = -1;
   const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -690,10 +693,10 @@ html[dir=rtl] .nm-l a{font-family:"Cairo",var(--disp);letter-spacing:0;line-heig
         <span class="tag${p.st !== 'concept' ? ' live' : ''}"><i></i>${L(ST[p.st])}</span>
         <h3>${p.name.replace(/^(\S+)/, '<span>$1</span>')}</h3><div class="cat">${L(p.cat)}</div><p>${L(p.p)}</p>
         <div class="chips">${L(p.chips).map(c => `<span>${c}</span>`).join('')}</div>
-        <div class="acts"><a class="btn open" href="${p.url}" target="_blank" rel="noopener">${U('open')}</a><button class="btn nx" data-go="${i + 1}"><span>${U('next')}</span>${arrow}</button></div></div>`).join('') +
+        <div class="acts"><a class="btn open" href="${p.url}" target="_blank" rel="noopener">${U('open')}</a><button class="btn nx" data-go="${i + 1}"><span>${U('next')}</span>${arrow}</button></div><a class="allw" href="portfolio/">${U('all')}</a></div>`).join('') +
       `<div class="it" style="--c:#ff5a1f;--rgb:255,90,31">${cnt(N - 1)}<span class="tag live"><i></i>${U('yoursCat')}</span>
         <h3>${U('yoursT')}</h3><p>${U('yoursP')}</p>
-        <div class="acts"><a class="btn fire mag" data-wa href="#" target="_blank" rel="noopener">${U('start')}</a><a class="btn nx" href="#services" data-nav="services"><span>${U('prices')}</span></a></div></div>`;
+        <div class="acts"><a class="btn fire mag" data-wa href="#" target="_blank" rel="noopener">${U('start')}</a><a class="btn nx" href="#services" data-nav="services"><span>${U('prices')}</span></a></div><a class="allw" href="portfolio/">${U('all')}</a></div>`;
     phs.innerHTML = PROJ.map(p => { const t = TALL[p.name];
         return `<a class="ph" href="${p.url}" target="_blank" rel="noopener" tabindex="-1" data-view style="--rgb:${hex(p.c)}" aria-label="${p.name}"><div class="scr"><img class="${t ? 'tall' : 'fit'}" data-src="assets/img/${t || p.m}" alt="${p.name} website on a phone" decoding="async"></div></a>`; }).join('') +
       `<a class="ph" data-wa href="#" target="_blank" rel="noopener" tabindex="-1" data-view style="--rgb:255,90,31" aria-label="Start a project"><div class="scr"><div class="yours-scr"><span class="u">${U('url')}</span><b>${U('scrB')}</b><div class="q">?</div><div class="sk"><i></i><i></i></div></div></div></a><div class="shadow"></div>`;
