@@ -103,8 +103,16 @@ html[lang=ar] .kick{font-family:"Cairo"}
 .film .stage{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:clamp(16px,4vw,56px)}
 .phone{position:relative;width:min(340px,78vw);aspect-ratio:9/16;border-radius:38px;padding:9px;background:#26211e;box-shadow:0 0 0 1px rgba(246,236,217,.12),0 50px 100px -40px rgba(255,90,31,.45),0 30px 60px -30px rgba(0,0,0,.8)}
 .phone video{width:100%;height:100%;object-fit:cover;border-radius:30px;background:#000}
-.phone .snd{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:99px;background:rgba(15,13,12,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-weight:700;font-size:14px;white-space:nowrap}
-.phone .snd svg{width:16px;height:16px}
+.play{position:absolute;inset:9px;border-radius:30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:rgba(15,13,12,.35);transition:opacity .4s,visibility .4s}
+.play .pb{position:relative;width:84px;height:84px;border-radius:50%;background:var(--or);color:var(--ink);display:grid;place-items:center;box-shadow:0 14px 40px -10px rgba(255,90,31,.8);transition:transform .3s var(--e)}
+.play .pb:before{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid rgba(255,90,31,.55);animation:ring 2s ease-out infinite}
+@keyframes ring{from{transform:scale(.85);opacity:1}to{transform:scale(1.35);opacity:0}}
+.play .pb svg{width:34px;height:34px;margin-inline-start:4px}
+html[dir=rtl] .play .pb svg{margin-inline-start:0;margin-inline-end:4px}
+.play:hover .pb{transform:scale(1.07)}
+.play .pl{height:38px;padding:0 16px;border-radius:99px;background:rgba(15,13,12,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:inline-flex;align-items:center;font-weight:700;font-size:14px;white-space:nowrap}
+.phone.on .play{opacity:0;visibility:hidden}
+.phone video{cursor:pointer}
 .side{display:grid;gap:12px}
 .bub{max-width:300px;padding:14px 16px;border-radius:18px;background:var(--char);box-shadow:inset 0 0 0 1px var(--line);font-size:15px;opacity:0;transform:translateY(16px);transition:opacity .7s var(--e),transform .8s var(--e);transition-delay:var(--t,0s)}
 .bub.in{opacity:1;transform:none}
@@ -289,8 +297,8 @@ footer small{display:block;margin-top:10px;font-size:13px;color:var(--mute)}
       <div class="bub me" style="--t:.5s"><span data-i="ask2">Arabic and English please 🙏</span></div>
     </div>
     <div class="phone rv">
-      <video id="vid" src="assets/v/yalla.mp4" poster="assets/v/yalla.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Yalla Website promo video"></video>
-      <button class="snd" id="snd" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path id="sw" d="M23 9l-6 6M17 9l6 6"/></svg><span data-i="snd">Watch with sound</span></button>
+      <video id="vid" src="assets/v/yalla.mp4" poster="assets/v/yalla.jpg" playsinline preload="metadata" aria-label="Yalla Website promo video"></video>
+      <button class="play" id="play" type="button" aria-label="Play the video"><span class="pb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><span class="pl" data-i="snd">Watch the video · 0:18</span></button>
     </div>
     <div class="side r">
       <div class="bub" style="--t:.9s"><small>Yalla Website</small><span data-i="rep">Yalla! Send us your logo, menu and a few photos. We'll show you the site on your phone in a few days.</span></div>
@@ -421,7 +429,7 @@ footer small{display:block;margin-top:10px;font-size:13px;color:var(--mute)}
     pill: 'موقع جديد؟ <b>$200 حسم</b> إذا عملتلنا منشن', pillI: 'كيف ←',
     h1a: 'مصلحتك.', h1b: 'أونلاين.', hP: 'مواقع نضيفة وسريعة للمطاعم والمحلات والبراندات بلبنان. عربي وإنكليزي، معمولة للتلفون، وجاهزة بأقل من ٧ أيام.',
     b1: 'ابدأ عالواتساب', b2: 'شوف الفيديو', hN: 'بلا قوالب. تصميمك إنت، والدومين إلك.', wk: 'بيشتغل مع يلّي زباينك بيستعملوه أصلاً', ar: 'عربي + إنكليزي', ph: 'أي تلفون',
-    you: 'إنت', ask: 'مرحبا! عندي كوفي شوب بالحمرا. فيكن تعملولنا موقع مع المنيو؟', ask2: 'عربي وإنكليزي إذا بتريد 🙏', snd: 'شوف مع الصوت',
+    you: 'إنت', ask: 'مرحبا! عندي كوفي شوب بالحمرا. فيكن تعملولنا موقع مع المنيو؟', ask2: 'عربي وإنكليزي إذا بتريد 🙏', snd: 'شوف الفيديو · 0:18',
     rep: 'يلّا! ابعتلنا اللوغو، المنيو وشوية صور. منفرجيك الموقع عتلفونك خلال كم يوم.', t1: 'منيو مع صور', t2: 'عربي + إنكليزي', t3: 'أزرار واتساب وخريطة',
     fK: 'شو بتاخد', fH: 'أكتر من موقع. <span class="m">كل شي بلينك واحد.</span>', fP: 'اللينك يلّي بتحطّه بالبايو، عالمنيو وعلى Google Maps.',
     o1: '٢× برغر كلاسيك', oD: 'توصيل', o2: 'آيس لاتيه', oP: 'استلام', o3: 'طاولة ٤ · وينغز', oI: 'بالمحل',
@@ -470,10 +478,13 @@ footer small{display:block;margin-top:10px;font-size:13px;color:var(--mute)}
   bg.onclick = () => { const o = !menu.classList.contains('open'); menu.classList.toggle('open', o); bg.setAttribute('aria-expanded', o); nav.classList.add('solid'); };
   $$('#menu a').forEach(a => a.addEventListener('click', () => { menu.classList.remove('open'); bg.setAttribute('aria-expanded', false); }));
 
-  /* video: sound toggle, only plays while on screen */
-  const vid = $('#vid'), snd = $('#snd');
-  snd.onclick = () => { vid.muted = !vid.muted; if (!vid.muted) { vid.currentTime = 0; vid.play(); } $('#sw').setAttribute('d', vid.muted ? 'M23 9l-6 6M17 9l6 6' : 'M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14'); snd.querySelector('span').textContent = vid.muted ? (lang === 'ar' ? 'شوف مع الصوت' : 'Watch with sound') : (lang === 'ar' ? 'سكّر الصوت' : 'Mute'); };
-  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { vid.play().catch(() => {}); $$('.bub').forEach(b => b.classList.add('in')); } else vid.pause(); }), { threshold: .35 }).observe(vid);
+  /* video: plays only when tapped, with sound */
+  const vid = $('#vid'), ph = vid.closest('.phone');
+  const start = () => { vid.muted = false; vid.play().then(() => ph.classList.add('on')).catch(() => {}); };
+  $('#play').onclick = start;
+  vid.addEventListener('click', () => { if (vid.paused) start(); else { vid.pause(); ph.classList.remove('on'); } });
+  vid.addEventListener('ended', () => { ph.classList.remove('on'); vid.currentTime = 0; });
+  new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) $$('.bub').forEach(b => b.classList.add('in')); else if (!vid.paused) { vid.pause(); ph.classList.remove('on'); } }), { threshold: .35 }).observe(vid);
 
   /* step runner: ticks itself through when it scrolls into view */
   let ran = false;
